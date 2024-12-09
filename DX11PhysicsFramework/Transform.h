@@ -41,5 +41,7 @@ public:
 	void Move(XMFLOAT3 direction);
 
 	void Update(float dt);
+
+	void Update(float dt, Transform* parent);
 };
 

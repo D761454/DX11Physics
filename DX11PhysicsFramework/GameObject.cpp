@@ -14,12 +14,12 @@ GameObject::~GameObject()
 
 void GameObject::Update(float dt)
 {
-	_transform->Update(dt);
-
-	if (_parent != nullptr)	// not fully decoupled however as all game objects will have a transform this is ok
+	if (_parent != nullptr)
 	{
-		//XMStoreFloat4x4(&_world, this->GetWorldMatrix() * _parent->GetTransform()->GetWorldMatrix());
-		XMStoreFloat4x4(_transform->GetWorld(), this->_transform->GetWorldMatrix() * _parent->GetTransform()->GetWorldMatrix());
+		_transform->Update(dt, _parent->GetTransform());
+	}
+	else {
+		_transform->Update(dt);
 	}
 }
 
