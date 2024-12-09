@@ -19,6 +19,8 @@ public:
 	Transform* GetTransform() { return _transform; }
 	Appearance* GetAppearance() { return _appearance; }
 
+	void SetParent(GameObject* parent) { _parent = parent; }
+
 	void Update(float dt);
 	void Draw(ID3D11DeviceContext * pImmediateContext);
 
@@ -28,5 +30,7 @@ private:
 	Appearance* _appearance;
 
 	string _type;
+
+	GameObject* _parent = nullptr;
 };
 

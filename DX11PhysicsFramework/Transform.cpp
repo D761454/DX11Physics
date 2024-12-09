@@ -7,7 +7,7 @@ Transform::Transform(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale) {
 }
 
 Transform::~Transform() {
-	_parent = nullptr;
+	
 }
 
 void Transform::Move(XMFLOAT3 direction) {
@@ -23,9 +23,4 @@ void Transform::Update(float dt) {
 	XMMATRIX translation = XMMatrixTranslation(_position.x, _position.y, _position.z);
 
 	XMStoreFloat4x4(&_world, scale * rotation * translation);
-
-	if (_parent != nullptr)
-	{
-		XMStoreFloat4x4(&_world, this->GetWorldMatrix() * _parent->GetTransform()->GetWorldMatrix());
-	}
 }

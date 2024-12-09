@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameObject.h"
 #include <directxmath.h>
 #include <d3d11_1.h>
 
@@ -12,8 +11,6 @@ private:
 	XMFLOAT3 _position;
 	XMFLOAT3 _rotation;
 	XMFLOAT3 _scale;
-
-	GameObject* _parent = nullptr;
 
 	XMFLOAT4X4 _world;
 
@@ -39,8 +36,7 @@ public:
 	XMFLOAT3 GetRotation() const { return _rotation; }
 
 	XMMATRIX GetWorldMatrix() const { return XMLoadFloat4x4(&_world); }
-
-	void SetParent(GameObject* parent) { _parent = parent; }
+	XMFLOAT4X4* GetWorld() { return &_world; }
 
 	void Move(XMFLOAT3 direction);
 
