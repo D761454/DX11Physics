@@ -513,9 +513,13 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	noSpecMaterial.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	noSpecMaterial.specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	// rather than new each time, make pointers to appearances !!!
+	// create appearance presets
+	appearances["Floor"] = new Appearance(planeGeometry, noSpecMaterial); // using unordered map to store appearances as fast and allows easy appearance lookup / reuse
+	appearances["Cube"] = new Appearance(cubeGeometry, shinyMaterial);
+	appearances["Donut"] = new Appearance(herculesGeometry, shinyMaterial);
 
-	GameObject* gameObject = new GameObject("Floor", new Appearance(planeGeometry, noSpecMaterial));
+
+	GameObject* gameObject = new GameObject("Floor", appearances["Floor"]);
 	gameObject->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
@@ -525,7 +529,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 
 	for (auto i = 0; i < 4; i++)
 	{
-		gameObject = new GameObject("Cube " + i, new Appearance(cubeGeometry, shinyMaterial));
+		gameObject = new GameObject("Cube " + i, appearances["Cube"]);
 		gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 		gameObject->GetTransform()->SetPosition(-2.0f + (i * 2.5f), 1.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
@@ -533,7 +537,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 		_gameObjects.push_back(gameObject);
 	}
 
-	gameObject = new GameObject("Donut", new Appearance(herculesGeometry, shinyMaterial));
+	gameObject = new GameObject("Donut", appearances["Donut"]);
 	gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 	gameObject->GetTransform()->SetPosition(-5.0f, 0.5f, 10.0f);
 	gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);

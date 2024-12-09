@@ -12,6 +12,7 @@
 #include "OBJLoader.h"
 
 #include <vector>
+#include <unordered_map>
 
 #include "GameObject.h"
 
@@ -57,6 +58,7 @@ private:
 
 	MeshData _objMeshData;
 	vector<GameObject*> _gameObjects;
+	unordered_map<string, Appearance*> appearances;
 
 	Camera * _camera = nullptr;
 	float _cameraOrbitRadius = 7.0f;
