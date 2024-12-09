@@ -513,6 +513,8 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	noSpecMaterial.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	noSpecMaterial.specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 
+	// rather than new each time, make pointers to appearances !!!
+
 	GameObject* gameObject = new GameObject("Floor", new Appearance(planeGeometry, noSpecMaterial));
 	gameObject->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
