@@ -14,6 +14,12 @@ public:
     Vector3(void);
     Vector3(float xi, float yi, float zi);
 
+    Vector3(Vector3& copy) {
+        x = copy.x;
+        y = copy.y;
+        z = copy.z;
+    }
+
     float Magnitude(void);
     void  Normalize(void);
     void  Reverse(void);
