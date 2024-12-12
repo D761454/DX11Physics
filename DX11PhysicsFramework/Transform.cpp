@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-Transform::Transform(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale) { 
+Transform::Transform(Vector3 position, Vector3 rotation, Vector3 scale) {
 	_position = position; 
 	_rotation = rotation; 
 	_scale = scale; 
@@ -10,7 +10,7 @@ Transform::~Transform() {
 	
 }
 
-void Transform::Move(XMFLOAT3 direction) {
+void Transform::Move(Vector3 direction) {
 	_position.x += direction.x;
 	_position.y += direction.y;
 	_position.z += direction.z;
