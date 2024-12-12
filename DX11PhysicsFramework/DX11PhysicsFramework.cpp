@@ -616,6 +616,7 @@ void DX11PhysicsFramework::Update()
 	{
 		_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
 	}
+
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
 
