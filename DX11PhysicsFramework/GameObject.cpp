@@ -4,6 +4,8 @@ GameObject::GameObject(string type, Appearance* appearance)
 {
 	_transform = new Transform(Vector3(), Vector3(), Vector3(1.0f, 1.0f, 1.0f));
 
+	_physics = new PhysicsModel(_transform);
+
 	_appearance = appearance;
 }
 
@@ -14,6 +16,8 @@ GameObject::~GameObject()
 
 void GameObject::Update(float dt)
 {
+	_physics->Update(dt);
+
 	if (_parent != nullptr)
 	{
 		_transform->Update(dt, _parent->GetTransform());
