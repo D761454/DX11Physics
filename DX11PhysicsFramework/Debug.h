@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <stdio.h>
 #include <windows.h>
 
 class Debug
@@ -8,6 +9,7 @@ class Debug
 private:
 
 public:
-	void Print(int in);
+	static int VDebugPrintF(const char* format, va_list args);
+	static int DebugPrintF(const char* format, ...);
 };
 
