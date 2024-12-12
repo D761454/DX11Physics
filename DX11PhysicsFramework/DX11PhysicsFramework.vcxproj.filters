@@ -15,6 +15,9 @@
     <Filter Include="Helpers">
       <UniqueIdentifier>{9c796f30-1066-4157-a18b-1202b10ee0ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\OBJ">
+      <UniqueIdentifier>{d626d522-d8d9-4601-bb4c-a4e5751ee553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11PhysicsFramework.h" />
@@ -66,5 +69,19 @@
     <ResourceCompile Include="DX11PhysicsFramework.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Resources\OBJ\cube.obj">
+      <Filter>Resource Files\OBJ</Filter>
+    </Object>
+    <Object Include="Resources\OBJ\donut.obj">
+      <Filter>Resource Files\OBJ</Filter>
+    </Object>
+    <Object Include="Resources\OBJ\Hercules.obj">
+      <Filter>Resource Files\OBJ</Filter>
+    </Object>
+    <Object Include="Resources\OBJ\torusKnot.obj">
+      <Filter>Resource Files\OBJ</Filter>
+    </Object>
   </ItemGroup>
 </Project>
