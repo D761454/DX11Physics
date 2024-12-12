@@ -105,7 +105,6 @@ Vector3 Vector3::operator-(void)
 /// return value of given vector added to this
 /// </summary>
 /// <param name="u"></param>
-/// <param name="v"></param>
 /// <returns></returns>
 Vector3 Vector3::operator+(Vector3 u)
 {
@@ -116,7 +115,6 @@ Vector3 Vector3::operator+(Vector3 u)
 /// return value of the given vector subtracted from this
 /// </summary>
 /// <param name="u"></param>
-/// <param name="v"></param>
 /// <returns></returns>
 Vector3 Vector3::operator-(Vector3 u)
 {
@@ -127,7 +125,6 @@ Vector3 Vector3::operator-(Vector3 u)
 /// cross product / vector product
 /// </summary>
 /// <param name="u"></param>
-/// <param name="v"></param>
 /// <returns></returns>
 Vector3 Vector3::operator^(Vector3 u)
 {
@@ -140,7 +137,6 @@ Vector3 Vector3::operator^(Vector3 u)
 /// dot product / scalar product
 /// </summary>
 /// <param name="u"></param>
-/// <param name="v"></param>
 /// <returns></returns>
 float Vector3::operator*(Vector3 u)
 {
@@ -151,7 +147,6 @@ float Vector3::operator*(Vector3 u)
 /// *scale vector by given
 /// </summary>
 /// <param name="s"></param>
-/// <param name="u"></param>
 /// <returns></returns>
 Vector3 Vector3::operator*(float s)
 {
@@ -162,7 +157,6 @@ Vector3 Vector3::operator*(float s)
 /// /scale vector by given
 /// </summary>
 /// <param name="s"></param>
-/// <param name="u"></param>
 /// <returns></returns>
 Vector3 Vector3::operator/(float s)
 {
