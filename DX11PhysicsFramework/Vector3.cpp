@@ -107,9 +107,9 @@ Vector3 Vector3::operator-(void)
 /// <param name="u"></param>
 /// <param name="v"></param>
 /// <returns></returns>
-Vector3 operator+(Vector3 u, Vector3 v)
+Vector3 Vector3::operator+(Vector3 u)
 {
-    return Vector3(u.x + v.x, u.y + v.y, u.z + v.z);
+    return Vector3(u.x + x, u.y + y, u.z + z);
 }
 
 /// <summary>
@@ -118,9 +118,9 @@ Vector3 operator+(Vector3 u, Vector3 v)
 /// <param name="u"></param>
 /// <param name="v"></param>
 /// <returns></returns>
-Vector3 operator-(Vector3 u, Vector3 v)
+Vector3 Vector3::operator-(Vector3 u)
 {
-    return Vector3(u.x - v.x, u.y - v.y, u.z - v.z);
+    return Vector3(x - u.x, y - u.y, z - u.z);
 }
 
 /// <summary>
@@ -129,11 +129,11 @@ Vector3 operator-(Vector3 u, Vector3 v)
 /// <param name="u"></param>
 /// <param name="v"></param>
 /// <returns></returns>
-Vector3 operator^(Vector3 u, Vector3 v)
+Vector3 Vector3::operator^(Vector3 u)
 {
-    return Vector3(u.y * v.z - u.z * v.y,
-        -u.x * v.z + u.z * v.x,
-        u.x * v.y - u.y * v.x);
+    return Vector3(y * u.z - z * u.y,
+        -x * u.z + z * u.x,
+        x * u.y - y * u.x);
 }
 
 /// <summary>
@@ -142,9 +142,9 @@ Vector3 operator^(Vector3 u, Vector3 v)
 /// <param name="u"></param>
 /// <param name="v"></param>
 /// <returns></returns>
-float operator*(Vector3 u, Vector3 v)
+float Vector3::operator*(Vector3 u)
 {
-    return (u.x * v.x + u.y * v.y + u.z * v.z);
+    return (x * u.x + y * u.y + z * u.z);
 }
 
 /// <summary>
@@ -153,20 +153,9 @@ float operator*(Vector3 u, Vector3 v)
 /// <param name="s"></param>
 /// <param name="u"></param>
 /// <returns></returns>
-Vector3 operator*(float s, Vector3 u)
+Vector3 Vector3::operator*(float s)
 {
-    return Vector3(u.x * s, u.y * s, u.z * s);
-}
-
-/// <summary>
-/// *scale vector by given
-/// </summary>
-/// <param name="s"></param>
-/// <param name="u"></param>
-/// <returns></returns>
-Vector3 operator*(Vector3 u, float s)
-{
-    return Vector3(u.x * s, u.y * s, u.z * s);
+    return Vector3(x * s, y * s, z * s);
 }
 
 /// <summary>
@@ -175,12 +164,12 @@ Vector3 operator*(Vector3 u, float s)
 /// <param name="s"></param>
 /// <param name="u"></param>
 /// <returns></returns>
-Vector3 operator/(Vector3 u, float s)
+Vector3 Vector3::operator/(float s)
 {
-    return Vector3(u.x / s, u.y / s, u.z / s);
+    return Vector3(x / s, y / s, z / s);
 }
 
-float TripleScalarProduct(Vector3 u, Vector3 v, Vector3 w)
+float Vector3::TripleScalarProduct(Vector3 u, Vector3 v, Vector3 w)
 {
     return float((u.x * (v.y * w.z - v.z * w.y)) +
         (u.y * (-v.x * w.z + v.z * w.x)) +

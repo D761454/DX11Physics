@@ -30,6 +30,15 @@ public:
     Vector3& operator/=(float s);
     Vector3 operator-(void);
 
+    Vector3 operator+(Vector3 u);
+    Vector3 operator-(Vector3 u);
+    Vector3 operator^(Vector3 u);
+    float operator*(Vector3 u);
+    Vector3 operator*(float s);
+    Vector3 operator/(float s);
+
+    float TripleScalarProduct(Vector3 u, Vector3 v, Vector3 w);
+
 private:
 
 };
