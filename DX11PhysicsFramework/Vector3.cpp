@@ -7,11 +7,11 @@ Vector3::Vector3(void)
     z = 0;
 }
 
-Vector3::Vector3(float xi, float yi, float zi)
+Vector3::Vector3(float x, float y, float z)
 {
-    x = xi;
-    y = yi;
-    z = zi;
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 
 float Vector3::Magnitude(void)

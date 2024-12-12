@@ -12,7 +12,7 @@ public:
 	float x, y, z;
 
     Vector3(void);
-    Vector3(float xi, float yi, float zi);
+    Vector3(float x, float y, float z);
 
     Vector3& copy(Vector3& copy) {
         x = copy.x;

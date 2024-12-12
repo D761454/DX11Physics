@@ -2,7 +2,7 @@
 
 GameObject::GameObject(string type, Appearance* appearance)
 {
-	_transform = new Transform(XMFLOAT3(), XMFLOAT3(), XMFLOAT3(1.0f, 1.0f, 1.0f));
+	_transform = new Transform(Vector3(), Vector3(), Vector3(1.0f, 1.0f, 1.0f));
 
 	_appearance = appearance;
 }
