@@ -18,6 +18,9 @@
     <Filter Include="Resource Files\OBJ">
       <UniqueIdentifier>{d626d522-d8d9-4601-bb4c-a4e5751ee553}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{2c704cf2-c4c1-4315-9545-9d1e6002478a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11PhysicsFramework.h" />
@@ -30,12 +33,22 @@
     <ClInclude Include="DDSTextureLoader.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Appearance.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="Vector3.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="PhysicsModel.h" />
+    <ClInclude Include="Appearance.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsModel.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -48,12 +61,22 @@
     <ClCompile Include="DDSTextureLoader.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Appearance.cpp" />
-    <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="PhysicsModel.cpp" />
+    <ClCompile Include="Appearance.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsModel.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

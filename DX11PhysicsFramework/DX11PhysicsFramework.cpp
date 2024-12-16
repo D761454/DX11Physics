@@ -397,7 +397,6 @@ HRESULT DX11PhysicsFramework::InitVertexIndexBuffers()
 	return S_OK;
 }
 
-
 HRESULT DX11PhysicsFramework::InitPipelineStates()
 {
 	HRESULT hr = S_OK;
