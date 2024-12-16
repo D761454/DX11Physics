@@ -621,6 +621,15 @@ void DX11PhysicsFramework::Update()
 		{
 			_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
 		}
+		if (GetAsyncKeyState('5')) {
+			if (_gameObjects[2]->GetPhysicsModel()->accelerate) {
+				_gameObjects[2]->GetPhysicsModel()->accelerate = false;
+				_gameObjects[2]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0)); // used to show turning acceleration off
+			}
+			else {
+				_gameObjects[2]->GetPhysicsModel()->accelerate = true;
+			}
+		}
 
 		// Update camera
 		float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
