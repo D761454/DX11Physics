@@ -594,13 +594,13 @@ DX11PhysicsFramework::~DX11PhysicsFramework()
 void DX11PhysicsFramework::Update()
 {
 	static float accumulator = 0.0f;
+
+	int i = 0;
 	
 	accumulator += _timer->GetDeltaTime();
 
 	while (accumulator >= FPS60) {
-		std::string v;
-		v = std::to_string(accumulator);
-		OutputDebugStringA(v.c_str());
+		Debug::DebugPrintF("DeltaTime is %f had to loop %i times\n", accumulator, i);
 
 		// Move gameobjects
 		if (GetAsyncKeyState('1'))
@@ -640,7 +640,9 @@ void DX11PhysicsFramework::Update()
 		}
 
 		accumulator -= FPS60;
+		i += 1;
 	}
+	i = 0;
 
 	const double alpha = accumulator / FPS60;
 
