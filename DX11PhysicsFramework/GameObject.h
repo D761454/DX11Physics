@@ -19,6 +19,7 @@ public:
 
 	Transform* GetTransform() { return _transform; }
 	Appearance* GetAppearance() { return _appearance; }
+	PhysicsModel* GetPhysicsModel() { return _physics; }
 
 	void SetParent(GameObject* parent) { _parent = parent; }
 

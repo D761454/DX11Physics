@@ -543,6 +543,8 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
 	_gameObjects.push_back(gameObject);
 
+	_gameObjects[2]->GetPhysicsModel()->SetVelocity(Vector3(0,1,0));
+
 	_timer = new Timer();
 
 	return S_OK;
