@@ -15,6 +15,8 @@
 #include <unordered_map>
 
 #include "GameObject.h"
+#include "Timer.h"
+#include "Debug.h"
 
 #define FPS60 1.0f/60.0f
 
@@ -76,6 +78,8 @@ private:
 
 	ID3D11RasterizerState* _CCWcullMode; //Counter Clockwise
 	ID3D11RasterizerState* _CWcullMode; //Clockwise
+
+	Timer* _timer;
 
 private:
 	HRESULT CreateWindowHandle(HINSTANCE hInstance, int nCmdShow);

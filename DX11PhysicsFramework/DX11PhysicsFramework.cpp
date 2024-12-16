@@ -543,6 +543,8 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
 	_gameObjects.push_back(gameObject);
 
+	_timer = new Timer();
+
 	return S_OK;
 }
 
@@ -585,56 +587,64 @@ DX11PhysicsFramework::~DX11PhysicsFramework()
 	if (_dxgiDevice)_dxgiDevice->Release();
 	if (_dxgiFactory)_dxgiFactory->Release();
 	if (_device)_device->Release();
+
+	if (_timer) delete _timer;
 }
 
 void DX11PhysicsFramework::Update()
 {
-	//Static initializes this value only once    
-	static ULONGLONG frameStart = GetTickCount64();
+	static float accumulator = 0.0f;
+	
+	accumulator += _timer->GetDeltaTime();
 
-	ULONGLONG frameNow = GetTickCount64();
-	float deltaTime = (frameNow - frameStart) / 1000.0f;
-	frameStart = frameNow;
+	while (accumulator >= FPS60) {
+		std::string v;
+		v = std::to_string(accumulator);
+		OutputDebugStringA(v.c_str());
 
-	static float simpleCount = 0.0f;
-	simpleCount += deltaTime;
+		// Move gameobjects
+		if (GetAsyncKeyState('1'))
+		{
+			_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+		}
+		if (GetAsyncKeyState('2'))
+		{
+			_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
+		}
+		if (GetAsyncKeyState('3'))
+		{
+			_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+		}
+		if (GetAsyncKeyState('4'))
+		{
+			_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
+		}
 
-	// Move gameobjects
-	if (GetAsyncKeyState('1'))
-	{
-		_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+		// Update camera
+		float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
+
+		float x = _cameraOrbitRadius * cos(angleAroundZ);
+		float z = _cameraOrbitRadius * sin(angleAroundZ);
+
+		XMFLOAT3 cameraPos = _camera->GetPosition();
+		cameraPos.x = x;
+		cameraPos.z = z;
+
+		_camera->SetPosition(cameraPos);
+		_camera->Update();
+
+		// Update objects
+		for (auto gameObject : _gameObjects)
+		{
+			gameObject->Update(FPS60);
+		}
+
+		accumulator -= FPS60;
 	}
-	if (GetAsyncKeyState('2'))
-	{
-		_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
-	}
-	if (GetAsyncKeyState('3'))
-	{
-		_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
-	}
-	if (GetAsyncKeyState('4'))
-	{
-		_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
-	}
 
-	// Update camera
-	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
+	const double alpha = accumulator / FPS60;
 
-	float x = _cameraOrbitRadius * cos(angleAroundZ);
-	float z = _cameraOrbitRadius * sin(angleAroundZ);
-
-	XMFLOAT3 cameraPos = _camera->GetPosition();
-	cameraPos.x = x;
-	cameraPos.z = z;
-
-	_camera->SetPosition(cameraPos);
-	_camera->Update();
-
-	// Update objects
-	for (auto gameObject : _gameObjects)
-	{
-		gameObject->Update(deltaTime);
-	}
+	_timer->Tick();
 }
 
 void DX11PhysicsFramework::Draw()

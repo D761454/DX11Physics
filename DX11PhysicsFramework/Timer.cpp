@@ -4,7 +4,7 @@ Timer::Timer() {
 	lastFrame = steady_clock::time_point(steady_clock::now());
 }
 
-float Timer::GetActualDeltaTime() {
+float Timer::GetDeltaTime() {
 	float dt = duration<float>(steady_clock::now() - lastFrame).count();
 
 	return dt;

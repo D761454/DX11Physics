@@ -1,7 +1,6 @@
 #pragma once
 
 #include <chrono>
-#include "CircularBuffer.h"
 
 using namespace std::chrono;
 
@@ -10,7 +9,7 @@ class Timer
 public:
 	Timer();
 
-	float GetActualDeltaTime();
+	float GetDeltaTime();
 	void Tick();
 
 private:

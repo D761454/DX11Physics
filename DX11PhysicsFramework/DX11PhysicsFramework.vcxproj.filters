@@ -36,9 +36,6 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="PhysicsModel.h" />
-    <ClInclude Include="CircularBuffer.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />
