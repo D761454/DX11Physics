@@ -7,6 +7,10 @@ ParticleModel::ParticleModel(Transform* transform, float mass) : PhysicsModel(tr
 void ParticleModel::Update(float dt) {
 	Vector3 position = _transform->GetPosition();
 
+	if (simulateGravity) {
+		_netforce += GravityForce();
+	}
+
 	if (!constantAcceleration) {
 		_acceleration += _netforce / _mass;
 	}
@@ -16,7 +20,10 @@ void ParticleModel::Update(float dt) {
 	position += _velocity * dt;
 
 	_netforce = Vector3(0, 0, 0);
-	_acceleration = Vector3(0, 0, 0);
+
+	if (!constantAcceleration) {
+		_acceleration = Vector3(0, 0, 0);
+	}
 
 	_transform->SetPosition(position);
 }

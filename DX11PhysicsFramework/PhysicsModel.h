@@ -21,11 +21,13 @@ public:
 	void SetAcceleration(Vector3 acceleration) { _acceleration = acceleration; }
 
 	void AddForce(Vector3 force) { _netforce += force; }
+	Vector3 GravityForce() { return Vector3(0, -9.81f * _mass, 0); }
 
 	PhysicsModel(Transform* transform, float mass = 1.0f);
 
 	virtual void Update(float dt) = 0;
 
 	bool constantAcceleration = false;
+	bool simulateGravity = true;
 };
 

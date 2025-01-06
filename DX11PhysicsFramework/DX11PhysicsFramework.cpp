@@ -523,6 +523,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
 	gameObject->GetAppearance()->SetTextureRV(_GroundTextureRV);
+	gameObject->GetPhysicsModel()->simulateGravity = false;
 
 	_gameObjects.push_back(gameObject);
 
@@ -629,7 +630,6 @@ void DX11PhysicsFramework::Update()
 		if (GetAsyncKeyState('5')) {
 			if (_gameObjects[2]->GetPhysicsModel()->constantAcceleration) {
 				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = false;
-				_gameObjects[2]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0)); // used to show turning acceleration off
 			}
 			else {
 				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = true;
