@@ -4,7 +4,7 @@ GameObject::GameObject(string type, Appearance* appearance)
 {
 	_transform = new Transform(Vector3(), Vector3(), Vector3(1.0f, 1.0f, 1.0f));
 
-	_physics = new PhysicsModel(_transform);
+	_physics = new ParticleModel(_transform);
 
 	_appearance = appearance;
 }

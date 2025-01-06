@@ -19,7 +19,7 @@ public:
 
 	PhysicsModel(Transform* transform);
 
-	void Update(float dt);
+	virtual void Update(float dt) = 0;
 
 	bool accelerate = false;
 };

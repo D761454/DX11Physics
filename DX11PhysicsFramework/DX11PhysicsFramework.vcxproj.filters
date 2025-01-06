@@ -49,6 +49,9 @@
     <ClInclude Include="Debug.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleModel.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -75,6 +78,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleModel.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
