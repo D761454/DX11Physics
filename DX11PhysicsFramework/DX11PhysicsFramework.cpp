@@ -542,9 +542,9 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
 	_gameObjects.push_back(gameObject);
 
-	_gameObjects[1]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0));
+	/*_gameObjects[1]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0));
 	_gameObjects[2]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0));
-	_gameObjects[2]->GetPhysicsModel()->SetAcceleration(Vector3(0, 1, 0));
+	_gameObjects[2]->GetPhysicsModel()->SetAcceleration(Vector3(0, 1, 0));*/
 
 	_timer = new Timer();
 
@@ -608,27 +608,31 @@ void DX11PhysicsFramework::Update()
 		// Move gameobjects
 		if (GetAsyncKeyState('1'))
 		{
-			_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
 		}
 		if (GetAsyncKeyState('2'))
 		{
-			_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
+			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
 		}
 		if (GetAsyncKeyState('3'))
 		{
-			_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
+			_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
 		}
 		if (GetAsyncKeyState('4'))
 		{
-			_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
+			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
+			_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
 		}
 		if (GetAsyncKeyState('5')) {
-			if (_gameObjects[2]->GetPhysicsModel()->accelerate) {
-				_gameObjects[2]->GetPhysicsModel()->accelerate = false;
+			if (_gameObjects[2]->GetPhysicsModel()->constantAcceleration) {
+				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = false;
 				_gameObjects[2]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0)); // used to show turning acceleration off
 			}
 			else {
-				_gameObjects[2]->GetPhysicsModel()->accelerate = true;
+				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = true;
 			}
 		}
 
