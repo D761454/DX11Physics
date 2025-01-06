@@ -4,3 +4,27 @@ PhysicsModel::PhysicsModel(Transform* transform, float mass) {
 	_transform = transform;
 	_mass = mass;
 }
+
+void PhysicsModel::Update(float dt) {
+	Vector3 position = _transform->GetPosition();
+
+	if (simulateGravity) {
+		_netforce += GravityForce();
+	}
+
+	if (!constantAcceleration) {
+		_acceleration += _netforce / _mass;
+	}
+
+	_velocity += (_acceleration * dt);
+
+	position += _velocity * dt;
+
+	_netforce = Vector3(0, 0, 0);
+
+	if (!constantAcceleration) {
+		_acceleration = Vector3(0, 0, 0);
+	}
+
+	_transform->SetPosition(position);
+}

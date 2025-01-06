@@ -1,29 +1,15 @@
 #include "ParticleModel.h"
 
-ParticleModel::ParticleModel(Transform* transform, float mass) : PhysicsModel(transform, mass) {
-	
+ParticleModel::ParticleModel(Transform* transform, float mass = 1.0f, float resetTime, Vector3 pertubation, bool invertGravity) {
+	this->resetTime = resetTime;
 }
 
 void ParticleModel::Update(float dt) {
-	Vector3 position = _transform->GetPosition();
+	timeAlive += dt;
 
-	if (simulateGravity) {
-		_netforce += GravityForce();
+	if (timeAlive > resetTime) {
+		Reset();
 	}
 
-	if (!constantAcceleration) {
-		_acceleration += _netforce / _mass;
-	}
-
-	_velocity += (_acceleration * dt);
-
-	position += _velocity * dt;
-
-	_netforce = Vector3(0, 0, 0);
-
-	if (!constantAcceleration) {
-		_acceleration = Vector3(0, 0, 0);
-	}
-
-	_transform->SetPosition(position);
+	PhysicsModel::Update(dt);
 }

@@ -653,6 +653,9 @@ void DX11PhysicsFramework::Update()
 		for (auto gameObject : _gameObjects)
 		{
 			gameObject->Update(FPS60);
+			if (gameObject->GetTransform()->GetPosition().y <= 0.0f) {
+				gameObject->GetPhysicsModel()->simulateGravity = false;
+			}
 		}
 
 		accumulator -= FPS60;

@@ -23,9 +23,24 @@ public:
 	void AddForce(Vector3 force) { _netforce += force; }
 	Vector3 GravityForce() { return Vector3(0, -9.81f * _mass, 0); }
 
+	Vector3 DragForce() { 
+		float force = 0.5f * 1.0f * 1.05f * 1.0f * (_velocity.Magnitude() * _velocity.Magnitude());
+		Vector3 temp = _velocity;
+		temp.Reverse();
+		temp.Normalize();
+		return temp * force;
+	}
+	Vector3 FrictionForce() {
+		float force = 1.0f * 9.81f; // edit 1 to later be dependant on colliding object
+		Vector3 temp = _velocity;
+		temp.Reverse();
+		temp.Normalize();
+		return temp * force;
+	}
+
 	PhysicsModel(Transform* transform, float mass = 1.0f);
 
-	virtual void Update(float dt) = 0;
+	virtual void Update(float dt);
 
 	bool constantAcceleration = false;
 	bool simulateGravity = true;
