@@ -9,10 +9,10 @@ private:
 
 protected:
 	Transform* _transform;
-	Vector3 _velocity;
-	Vector3 _acceleration;
+	Vector3 _velocity = Vector3(0, 0, 0);
+	Vector3 _acceleration = Vector3(0, 0, 0);
 
-	Vector3 _netforce;
+	Vector3 _netforce = Vector3(0, 0, 0);
 	float _mass = 1.0f;
 
 	bool _invertGravity = false;
@@ -53,6 +53,6 @@ public:
 	virtual void Update(float dt);
 
 	bool constantAcceleration = false;
-	bool simulateGravity = false;
+	bool simulateGravity = true;
 };
 

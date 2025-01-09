@@ -11,9 +11,9 @@ void PhysicsModel::Update(float dt) {
 		_netforce += GravityForce();
 	}
 
-	_netforce += DragForce();
+	//_netforce += DragForce();
 	
-	_netforce += FrictionForce();
+	//_netforce += FrictionForce();
 
 	if (!constantAcceleration) {
 		_acceleration += _netforce / _mass;

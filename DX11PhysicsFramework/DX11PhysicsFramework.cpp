@@ -653,8 +653,11 @@ void DX11PhysicsFramework::Update()
 		for (auto gameObject : _gameObjects)
 		{
 			gameObject->Update(FPS60);
-			if (gameObject->GetTransform()->GetPosition().y <= 0.5f) {
+			if (gameObject->GetTransform()->GetPosition().y < 0.5f && gameObject->GetPhysicsModel()->simulateGravity) {
 				gameObject->GetPhysicsModel()->simulateGravity = false;
+				Vector3 temp = gameObject->GetPhysicsModel()->GetVelocity();
+				gameObject->GetPhysicsModel()->SetVelocity(Vector3(temp.x, 0, temp.z));
+				gameObject->GetTransform()->Move(Vector3(0, 0.5f - gameObject->GetTransform()->GetPosition().y, 0));
 			}
 		}
 
