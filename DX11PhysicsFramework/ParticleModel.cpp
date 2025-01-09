@@ -1,7 +1,8 @@
 #include "ParticleModel.h"
 
-ParticleModel::ParticleModel(Transform* transform, float mass = 1.0f, float resetTime, Vector3 pertubation, bool invertGravity) {
+ParticleModel::ParticleModel(Transform* transform, float resetTime, Vector3 pertubation, bool invertGravity) : PhysicsModel(transform) {
 	this->resetTime = resetTime;
+	this->pertubation = pertubation;
 }
 
 void ParticleModel::Update(float dt) {
@@ -12,4 +13,8 @@ void ParticleModel::Update(float dt) {
 	}
 
 	PhysicsModel::Update(dt);
+}
+
+void ParticleModel::Reset() {
+
 }

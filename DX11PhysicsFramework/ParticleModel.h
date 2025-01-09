@@ -9,9 +9,11 @@ protected:
 	float timeAlive = 0.0f;
 	float resetTime;
 
+	Vector3 pertubation = Vector3(0, 0, 0);
+
 public:
-	ParticleModel(Transform* transform, float mass = 1.0f) : PhysicsModel(transform, mass) {};
-	ParticleModel(Transform* transform, float mass = 1.0f, float resetTime, Vector3 pertubation, bool invertGravity);
+	ParticleModel(Transform* transform) : PhysicsModel(transform) {};
+	ParticleModel(Transform* transform, float resetTime, Vector3 pertubation, bool invertGravity);
 
 	void Update(float dt) override;
 

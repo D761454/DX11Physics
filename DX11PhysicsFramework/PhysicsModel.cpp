@@ -1,8 +1,7 @@
 #include "PhysicsModel.h"
 
-PhysicsModel::PhysicsModel(Transform* transform, float mass) {
+PhysicsModel::PhysicsModel(Transform* transform) {
 	_transform = transform;
-	_mass = mass;
 }
 
 void PhysicsModel::Update(float dt) {

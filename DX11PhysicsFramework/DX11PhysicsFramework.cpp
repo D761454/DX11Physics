@@ -531,7 +531,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	{
 		gameObject = new GameObject("Cube " + i, appearances["Cube"]);
 		gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
-		gameObject->GetTransform()->SetPosition(-2.0f + (i * 2.5f), 1.0f, 10.0f);
+		gameObject->GetTransform()->SetPosition(-2.0f + (i * 2.5f), 2.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
 
 		_gameObjects.push_back(gameObject);
@@ -539,7 +539,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 
 	gameObject = new GameObject("Donut", appearances["Donut"]);
 	gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
-	gameObject->GetTransform()->SetPosition(-5.0f, 0.5f, 10.0f);
+	gameObject->GetTransform()->SetPosition(-5.0f, 1.5f, 10.0f);
 	gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
 	_gameObjects.push_back(gameObject);
 

@@ -14,6 +14,8 @@ protected:
 	Vector3 _netforce;
 	float _mass = 1.0f;
 
+	bool _invertGravity = false;
+
 public:
 	Vector3 GetVelocity() const { return _velocity; }
 	void SetVelocity(Vector3 velocity) { _velocity = velocity; }
@@ -21,7 +23,11 @@ public:
 	void SetAcceleration(Vector3 acceleration) { _acceleration = acceleration; }
 
 	void AddForce(Vector3 force) { _netforce += force; }
-	Vector3 GravityForce() { return Vector3(0, -9.81f * _mass, 0); }
+	Vector3 GravityForce() { 
+		if (_invertGravity) {
+			return Vector3(0, 9.81f * _mass, 0);
+		}
+		return Vector3(0, -9.81f * _mass, 0); }
 
 	Vector3 DragForce() { 
 		float force = 0.5f * 1.0f * 1.05f * 1.0f * (_velocity.Magnitude() * _velocity.Magnitude());
@@ -38,7 +44,7 @@ public:
 		return temp * force;
 	}
 
-	PhysicsModel(Transform* transform, float mass = 1.0f);
+	PhysicsModel(Transform* transform);
 
 	virtual void Update(float dt);
 
