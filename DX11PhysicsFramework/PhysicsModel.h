@@ -53,6 +53,6 @@ public:
 	virtual void Update(float dt);
 
 	bool constantAcceleration = false;
-	bool simulateGravity = true;
+	bool simulateGravity = false;
 };
 
