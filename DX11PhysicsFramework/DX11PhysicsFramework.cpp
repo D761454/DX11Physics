@@ -527,7 +527,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 
 	_gameObjects.push_back(gameObject);
 
-	for (auto i = 0; i < 4; i++)
+	for (auto i = 0; i < 2; i++)
 	{
 		gameObject = new GameObject("Cube " + i, appearances["Cube"]);
 		gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
@@ -610,12 +610,12 @@ void DX11PhysicsFramework::Update()
 		if (GetAsyncKeyState('1'))
 		{
 			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
-			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, -10.0f));
 		}
 		if (GetAsyncKeyState('2'))
 		{
 			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
-			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, 10.0f));
 		}
 		if (GetAsyncKeyState('3'))
 		{
@@ -653,7 +653,7 @@ void DX11PhysicsFramework::Update()
 		for (auto gameObject : _gameObjects)
 		{
 			gameObject->Update(FPS60);
-			if (gameObject->GetTransform()->GetPosition().y <= 0.0f) {
+			if (gameObject->GetTransform()->GetPosition().y <= 0.5f) {
 				gameObject->GetPhysicsModel()->simulateGravity = false;
 			}
 		}

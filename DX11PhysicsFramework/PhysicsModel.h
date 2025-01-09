@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "Debug.h"
 
 class PhysicsModel
 {
@@ -37,11 +38,14 @@ public:
 		return temp * force;
 	}
 	Vector3 FrictionForce() {
-		float force = 1.0f * 9.81f; // edit 1 to later be dependant on colliding object
-		Vector3 temp = _velocity;
-		temp.Reverse();
-		temp.Normalize();
-		return temp * force;
+		if (_transform->GetPosition().y <= 0.5f) {
+			float force = 1.0f * (9.81f * _mass); // edit 1 to later be dependant on colliding object
+			Vector3 temp = _velocity;
+			temp.Reverse();
+			temp.Normalize();
+			return temp * force;
+		}
+		return Vector3(0, 0, 0);
 	}
 
 	PhysicsModel(Transform* transform);
