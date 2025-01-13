@@ -533,6 +533,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 		gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 		gameObject->GetTransform()->SetPosition(-2.0f + (i * 2.5f), 2.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
+		gameObject->GetPhysicsModel()->SetCollider(new SphereCollider(gameObject->GetTransform(), 1.0f));
 
 		_gameObjects.push_back(gameObject);
 	}
@@ -610,12 +611,12 @@ void DX11PhysicsFramework::Update()
 		if (GetAsyncKeyState('1'))
 		{
 			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
-			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, -10.0f));
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(-10.0f, 0, 0));
 		}
 		if (GetAsyncKeyState('2'))
 		{
 			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
-			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 0, 10.0f));
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(10.0f, 0, 0));
 		}
 		if (GetAsyncKeyState('3'))
 		{
@@ -633,6 +634,12 @@ void DX11PhysicsFramework::Update()
 			}
 			else {
 				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = true;
+			}
+		}
+
+		if (_gameObjects[1]->GetPhysicsModel()->IsCollideable() && _gameObjects[2]->GetPhysicsModel()->IsCollideable()) {
+			if (_gameObjects[1]->GetPhysicsModel()->GetCollider()->CollidesWith(*_gameObjects[2]->GetPhysicsModel()->GetCollider())) {
+				Debug::DebugPrintF("Collision");
 			}
 		}
 

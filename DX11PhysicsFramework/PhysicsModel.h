@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "SphereCollider.h"
 #include "Debug.h"
 
 class PhysicsModel abstract
@@ -9,6 +10,7 @@ private:
 
 protected:
 	Transform* _transform;
+	Collider* _collider = nullptr;
 	Vector3 _velocity = Vector3(0, 0, 0);
 	Vector3 _acceleration = Vector3(0, 0, 0);
 
@@ -47,6 +49,10 @@ public:
 		}
 		return Vector3(0, 0, 0);
 	}
+
+	bool IsCollideable() const { return _collider != nullptr; }
+	Collider* GetCollider() const { return _collider; }
+	void SetCollider(Collider* collider) { _collider = collider; }
 
 	PhysicsModel(Transform* transform);
 

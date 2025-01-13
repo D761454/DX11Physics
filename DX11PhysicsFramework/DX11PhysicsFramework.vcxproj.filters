@@ -46,16 +46,21 @@
     <ClInclude Include="PhysicsModel.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleModel.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="RigidBodyModel.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -81,16 +86,21 @@
     <ClCompile Include="PhysicsModel.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleModel.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="RigidBodyModel.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
