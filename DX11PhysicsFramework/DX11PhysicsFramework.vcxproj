@@ -371,6 +371,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Appearance.cpp" />
+    <ClCompile Include="AxisAlignedBoundingBox.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -395,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Appearance.h" />
+    <ClInclude Include="AxisAlignedBoundingBox.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="DX11PhysicsFramework.h" />

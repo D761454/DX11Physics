@@ -1,17 +1,15 @@
 #pragma once
 #include "Collider.h"
 
-class SphereCollider : public Collider
+class AxisAlignedBoundingBox : public Collider
 {
-	float radius = 1.0f;
+	Vector3 min, max;
 
 public:
-	SphereCollider(Transform* tf, float r) : Collider(tf) { radius = r; }
+	AxisAlignedBoundingBox(Transform* tf) : Collider(tf) { }
 
 	virtual bool CollidesWith(Collider& other) override { return other.CollidesWith(*this); }
 	virtual bool CollidesWith(SphereCollider& other) override;
 	virtual bool CollidesWith(AxisAlignedBoundingBox& other) override;
-
-	float GetRadius() const { return radius; }
 };
 

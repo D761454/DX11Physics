@@ -21,6 +21,12 @@
     <Filter Include="Components">
       <UniqueIdentifier>{2c704cf2-c4c1-4315-9545-9d1e6002478a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Colliders">
+      <UniqueIdentifier>{0fed7c3f-1384-49a1-844e-55ffc666014a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Models">
+      <UniqueIdentifier>{85f39c1e-6cb1-455d-9f24-a455e7763e8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11PhysicsFramework.h" />
@@ -43,23 +49,26 @@
     <ClInclude Include="Vector3.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsModel.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleModel.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBodyModel.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="SphereCollider.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Debug.h">
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Components</Filter>
+      <Filter>Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsModel.h">
+      <Filter>Components\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyModel.h">
+      <Filter>Components\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModel.h">
+      <Filter>Components\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisAlignedBoundingBox.h">
+      <Filter>Components\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,23 +92,26 @@
     <ClCompile Include="Vector3.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsModel.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleModel.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBodyModel.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SphereCollider.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Components</Filter>
+      <Filter>Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleModel.cpp">
+      <Filter>Components\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyModel.cpp">
+      <Filter>Components\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsModel.cpp">
+      <Filter>Components\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisAlignedBoundingBox.cpp">
+      <Filter>Components\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

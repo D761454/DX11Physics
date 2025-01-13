@@ -10,3 +10,7 @@ bool SphereCollider::CollidesWith(SphereCollider& other) {
 
 	return false;
 }
+
+bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
+	return false;
+}
