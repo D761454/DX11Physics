@@ -52,6 +52,10 @@
     <ClInclude Include="ParticleModel.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBodyModel.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -83,6 +87,10 @@
     <ClCompile Include="ParticleModel.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="RigidBodyModel.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "Debug.h"
 
-class PhysicsModel
+class PhysicsModel abstract
 {
 private:
 

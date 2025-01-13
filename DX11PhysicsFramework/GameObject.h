@@ -2,7 +2,7 @@
 
 #include "Transform.h"
 #include "Appearance.h"
-#include "ParticleModel.h"
+#include "RigidBodyModel.h"
 #include "Structures.h"
 #include <string>
 
@@ -30,7 +30,7 @@ private:
 
 	Transform* _transform;
 	Appearance* _appearance;
-	ParticleModel* _physics;
+	RigidBodyModel* _physics;
 
 	string _type;
 

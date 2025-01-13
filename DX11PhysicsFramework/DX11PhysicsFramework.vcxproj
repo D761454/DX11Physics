@@ -371,6 +371,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Appearance.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DX11PhysicsFramework.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -380,6 +381,7 @@
     <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="ParticleModel.cpp" />
     <ClCompile Include="PhysicsModel.cpp" />
+    <ClCompile Include="RigidBodyModel.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3.cpp" />
@@ -392,6 +394,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Appearance.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="DX11PhysicsFramework.h" />
     <ClInclude Include="Camera.h" />
@@ -401,6 +404,7 @@
     <ClInclude Include="ParticleModel.h" />
     <ClInclude Include="PhysicsModel.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="RigidBodyModel.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
