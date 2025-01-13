@@ -17,4 +17,3 @@ public:
 
 	Vector3 GetPosition() const { return _tf->GetPosition(); }
 };
-

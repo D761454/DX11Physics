@@ -1,5 +1,6 @@
 #pragma once
 #include "Collider.h"
+#include "AxisAlignedBoundingBox.h"
 
 class SphereCollider : public Collider
 {

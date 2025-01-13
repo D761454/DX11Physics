@@ -1,7 +1,15 @@
 #include "AxisAlignedBoundingBox.h"
 
 bool AxisAlignedBoundingBox::CollidesWith(SphereCollider& other) {
-	return false;
+	const float x = max(this->min.x, min(other.GetPosition().x, this->max.x));
+	const float y = max(this->min.y, min(other.GetPosition().y, this->max.y));
+	const float z = max(this->min.z, min(other.GetPosition().z, this->max.z));
+
+	const float dist = (x - other.GetPosition().x) * (x - other.GetPosition().x) +
+		(y - other.GetPosition().y) * (y - other.GetPosition().y) +
+		(z - other.GetPosition().z) * (z - other.GetPosition().z);
+
+	return dist < (other.GetRadius() * other.GetRadius());
 }
 
 bool AxisAlignedBoundingBox::CollidesWith(AxisAlignedBoundingBox& other) {
