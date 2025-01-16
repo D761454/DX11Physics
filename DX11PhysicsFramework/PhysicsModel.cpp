@@ -6,6 +6,9 @@ PhysicsModel::PhysicsModel(Transform* transform) {
 
 void PhysicsModel::Update(float dt) {
 	Vector3 position = _transform->GetPosition();
+	if (_collider) {
+		_collider->Update(dt);
+	}
 
 	if (simulateGravity) {
 		_netforce += GravityForce();
