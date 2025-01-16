@@ -24,5 +24,18 @@ bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
 }
 
 bool SphereCollider::CollidesWith(Plane& other) {
-	return false;
+	float projected = other.GetNRML() * (this->GetPosition() - other.GetPosition());
+
+	Vector3 temp = this->GetPosition() - other.GetPosition();
+	temp.Normalize();
+	temp.Reverse();
+
+	Vector3 closestPtOnPlane = this->GetPosition() - (temp * projected);
+	//Vector3 closestPtOnSphere = other.GetPosition() - (temp * other.GetRadius());
+
+	const float dist = (closestPtOnPlane.x - this->GetPosition().x) * (closestPtOnPlane.x - this->GetPosition().x) +
+		(closestPtOnPlane.y - this->GetPosition().y) * (closestPtOnPlane.y - this->GetPosition().y) +
+		(closestPtOnPlane.z - this->GetPosition().z) * (closestPtOnPlane.z - this->GetPosition().z);
+
+	return dist < (radius * radius);
 }

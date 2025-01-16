@@ -534,7 +534,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 		gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 		gameObject->GetTransform()->SetPosition(-2.0f + (i * 2.5f), 2.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
-		if (i < 1) {
+		if (i > 0) {
 			gameObject->GetPhysicsModel()->SetCollider(new AxisAlignedBoundingBox(gameObject->GetTransform()));
 		}
 		else {
@@ -643,8 +643,14 @@ void DX11PhysicsFramework::Update()
 			}
 		}
 
-		if (_gameObjects[1]->GetPhysicsModel()->IsCollideable() && _gameObjects[2]->GetPhysicsModel()->IsCollideable()) {
+		/*if (_gameObjects[1]->GetPhysicsModel()->IsCollideable() && _gameObjects[2]->GetPhysicsModel()->IsCollideable()) {
 			if (_gameObjects[1]->GetPhysicsModel()->GetCollider()->CollidesWith(*_gameObjects[2]->GetPhysicsModel()->GetCollider())) {
+				Debug::DebugPrintF("Collision");
+			}
+		}*/
+
+		if (_gameObjects[0]->GetPhysicsModel()->IsCollideable() && _gameObjects[1]->GetPhysicsModel()->IsCollideable()) {
+			if (_gameObjects[0]->GetPhysicsModel()->GetCollider()->CollidesWith(*_gameObjects[1]->GetPhysicsModel()->GetCollider())) {
 				Debug::DebugPrintF("Collision");
 			}
 		}

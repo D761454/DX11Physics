@@ -8,7 +8,7 @@ class Plane : public Collider
 	Vector3 normal;
 
 public:
-	Plane(Transform* tf, Vector3 n) : Collider(tf) { normal = n; }
+	Plane(Transform* tf, Vector3 n) : Collider(tf) { normal = n; normal.Normalize(); }
 
 	virtual bool CollidesWith(Collider& other) override { return other.CollidesWith(*this); }
 	virtual bool CollidesWith(SphereCollider& other) override;
