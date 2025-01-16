@@ -12,5 +12,13 @@ bool SphereCollider::CollidesWith(SphereCollider& other) {
 }
 
 bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
-	return false;
+	const float x = max(other.GetMin().x, min(this->GetPosition().x, other.GetMax().x));
+	const float y = max(other.GetMin().y, min(this->GetPosition().y, other.GetMax().y));
+	const float z = max(other.GetMin().z, min(this->GetPosition().z, other.GetMax().z));
+
+	const float dist = (x - this->GetPosition().x) * (x - this->GetPosition().x) +
+		(y - this->GetPosition().y) * (y - this->GetPosition().y) +
+		(z - this->GetPosition().z) * (z - this->GetPosition().z);
+
+	return dist < (radius * radius);
 }

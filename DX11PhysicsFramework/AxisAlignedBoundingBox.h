@@ -21,5 +21,8 @@ public:
 		min = this->GetPosition() - this->_tf->GetScale();
 		max = this->GetPosition() + this->_tf->GetScale();
 	}
+
+	Vector3 GetMin() const { return min; }
+	Vector3 GetMax() const { return max; }
 };
 

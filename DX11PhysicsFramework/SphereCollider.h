@@ -14,5 +14,7 @@ public:
 	virtual bool CollidesWith(AxisAlignedBoundingBox& other) override;
 
 	float GetRadius() const { return radius; }
+
+	virtual void Update(float dt) override {}
 };
 

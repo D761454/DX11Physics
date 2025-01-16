@@ -533,7 +533,12 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 		gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 		gameObject->GetTransform()->SetPosition(-2.0f + (i * 2.5f), 2.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
-		gameObject->GetPhysicsModel()->SetCollider(new AxisAlignedBoundingBox(gameObject->GetTransform()));
+		if (i < 1) {
+			gameObject->GetPhysicsModel()->SetCollider(new AxisAlignedBoundingBox(gameObject->GetTransform()));
+		}
+		else {
+			gameObject->GetPhysicsModel()->SetCollider(new SphereCollider(gameObject->GetTransform(), 1.0f));
+		}
 
 		_gameObjects.push_back(gameObject);
 	}
