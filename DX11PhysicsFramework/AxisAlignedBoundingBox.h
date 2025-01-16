@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.h"
 #include "SphereCollider.h"
+#include "Plane.h"
 
 class AxisAlignedBoundingBox : public Collider
 {
@@ -16,6 +17,7 @@ public:
 	virtual bool CollidesWith(Collider& other) override { return other.CollidesWith(*this); }
 	virtual bool CollidesWith(SphereCollider& other) override;
 	virtual bool CollidesWith(AxisAlignedBoundingBox& other) override;
+	virtual bool CollidesWith(Plane& other) override;
 
 	virtual void Update(float dt) override {
 		min = this->GetPosition() - this->_tf->GetScale();

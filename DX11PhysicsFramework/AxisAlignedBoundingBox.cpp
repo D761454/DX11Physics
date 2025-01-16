@@ -17,3 +17,7 @@ bool AxisAlignedBoundingBox::CollidesWith(AxisAlignedBoundingBox& other) {
 		(this->min.y <= other.max.y && this->max.y >= other.min.y) &&
 		(this->min.z <= other.max.z && this->max.z >= other.min.z);
 }
+
+bool AxisAlignedBoundingBox::CollidesWith(Plane& other) {
+	return false;
+}

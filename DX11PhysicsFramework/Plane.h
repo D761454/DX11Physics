@@ -1,22 +1,22 @@
 #pragma once
 #include "Collider.h"
 #include "AxisAlignedBoundingBox.h"
-#include "Plane.h"
+#include "SphereCollider.h"
 
-class SphereCollider : public Collider
+class Plane : public Collider
 {
-	float radius = 1.0f;
+	Vector3 normal;
 
 public:
-	SphereCollider(Transform* tf, float r) : Collider(tf) { radius = r; }
+	Plane(Transform* tf, Vector3 n) : Collider(tf) { normal = n; }
 
 	virtual bool CollidesWith(Collider& other) override { return other.CollidesWith(*this); }
 	virtual bool CollidesWith(SphereCollider& other) override;
 	virtual bool CollidesWith(AxisAlignedBoundingBox& other) override;
 	virtual bool CollidesWith(Plane& other) override;
 
-	float GetRadius() const { return radius; }
-
 	virtual void Update(float dt) override {}
+
+	Vector3 GetNRML() const { return normal; }
 };
 

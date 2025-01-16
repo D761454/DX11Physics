@@ -22,3 +22,7 @@ bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
 
 	return dist < (radius * radius);
 }
+
+bool SphereCollider::CollidesWith(Plane& other) {
+	return false;
+}

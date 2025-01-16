@@ -70,6 +70,7 @@
     <ClInclude Include="AxisAlignedBoundingBox.h">
       <Filter>Components\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="Plane.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="AxisAlignedBoundingBox.cpp">
       <Filter>Components\Colliders</Filter>
     </ClCompile>
+    <ClCompile Include="Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

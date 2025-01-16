@@ -3,6 +3,7 @@
 
 class SphereCollider;
 class AxisAlignedBoundingBox;
+class Plane;
 
 class Collider abstract
 {
@@ -14,6 +15,7 @@ public:
 	virtual bool CollidesWith(Collider& other) =0;
 	virtual bool CollidesWith(SphereCollider& other) =0;
 	virtual bool CollidesWith(AxisAlignedBoundingBox& other) = 0;
+	virtual bool CollidesWith(Plane& other) = 0;
 
 	Vector3 GetPosition() const { return _tf->GetPosition(); }
 
