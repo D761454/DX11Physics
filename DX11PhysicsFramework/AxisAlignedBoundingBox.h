@@ -9,7 +9,7 @@ class AxisAlignedBoundingBox : public Collider
 public:
 	AxisAlignedBoundingBox(Transform* tf) : Collider(tf) {
 		// add/remove half width/height to get min and max from pos
-		min = tf->GetPosition(); // temporary - assume all objects with collision have base size of 1x1x1
+		min = tf->GetPosition() - tf->GetScale();
 		max = tf->GetPosition() + tf->GetScale();
 	}
 
@@ -18,7 +18,7 @@ public:
 	virtual bool CollidesWith(AxisAlignedBoundingBox& other) override;
 
 	virtual void Update(float dt) override {
-		min = this->GetPosition(); // temporary - assume all objects with collision have base size of 1x1x1
+		min = this->GetPosition() - this->_tf->GetScale();
 		max = this->GetPosition() + this->_tf->GetScale();
 	}
 };
