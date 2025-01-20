@@ -20,4 +20,8 @@ public:
 	Vector3 GetPosition() const { return _tf->GetPosition(); }
 
 	virtual void Update(float dt) =0;
+
+	virtual float CalculatePenetrationDepth(Collider& other) = 0;
+	virtual float CalculatePenetrationDepth(SphereCollider& other) =0;
+	virtual float CalculatePenetrationDepth(AxisAlignedBoundingBox& other) = 0;
 };

@@ -18,5 +18,9 @@ public:
 	virtual void Update(float dt) override {}
 
 	Vector3 GetNRML() const { return normal; }
+
+	virtual float CalculatePenetrationDepth(Collider& other) override { return other.CalculatePenetrationDepth(*this); }
+	virtual float CalculatePenetrationDepth(SphereCollider& other) override { return 0.0f; }
+	virtual float CalculatePenetrationDepth(AxisAlignedBoundingBox& other) override { return 0.0f; }
 };
 

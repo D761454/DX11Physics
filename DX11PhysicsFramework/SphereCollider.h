@@ -18,5 +18,9 @@ public:
 	float GetRadius() const { return radius; }
 
 	virtual void Update(float dt) override {}
+
+	virtual float CalculatePenetrationDepth(Collider& other) override { return other.CalculatePenetrationDepth(*this); }
+	virtual float CalculatePenetrationDepth(SphereCollider& other) override;
+	virtual float CalculatePenetrationDepth(AxisAlignedBoundingBox& other) override { return 0.0f; }
 };
 

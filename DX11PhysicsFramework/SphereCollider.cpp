@@ -39,3 +39,7 @@ bool SphereCollider::CollidesWith(Plane& other) {
 
 	return dist < (radius * radius);
 }
+
+float SphereCollider::CalculatePenetrationDepth(SphereCollider& other) {
+	return (this->GetPosition() - other.GetPosition()).Magnitude() - this->GetRadius() - other.GetRadius();
+}
