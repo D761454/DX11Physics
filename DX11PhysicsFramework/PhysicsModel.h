@@ -26,6 +26,7 @@ public:
 	void SetVelocity(Vector3 velocity) { _velocity = velocity; }
 	Vector3 GetAcceleration() const { return _acceleration; }
 	void SetAcceleration(Vector3 acceleration) { _acceleration = acceleration; }
+	float GetMass() const { return _mass; }
 
 	void AddForce(Vector3 force) { _netforce += force; }
 	Vector3 GravityForce() { 
@@ -51,6 +52,8 @@ public:
 		}
 		return Vector3(0, 0, 0);
 	}
+
+	void ApplyImpulse(Vector3 impulse) { _velocity += impulse; }
 
 	bool IsCollideable() const { return _collider != nullptr; }
 	Collider* GetCollider() const { return _collider; }
