@@ -667,6 +667,12 @@ void DX11PhysicsFramework::Update()
 					float depth = _gameObjects[1]->GetPhysicsModel()->GetCollider()->CalculatePenetrationDepth(*_gameObjects[2]->GetPhysicsModel()->GetCollider());
 					Debug::DebugPrintF("%f \n", depth);
 
+					Vector3 temp = collisionNormal * depth * (1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) * (1 / _gameObjects[2]->GetPhysicsModel()->GetMass());
+
+					_gameObjects[1]->GetTransform()->Move(temp);
+					temp.Reverse();
+					_gameObjects[2]->GetTransform()->Move(temp);
+
 					_gameObjects[1]->GetPhysicsModel()->ApplyImpulse(collisionNormal * ((1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) * j));
 					_gameObjects[2]->GetPhysicsModel()->ApplyImpulse(collisionNormal * -(((1 / _gameObjects[2]->GetPhysicsModel()->GetMass()) * j)));
 				}
