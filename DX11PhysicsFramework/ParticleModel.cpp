@@ -18,3 +18,7 @@ void ParticleModel::Update(float dt) {
 void ParticleModel::Reset() {
 
 }
+
+void ParticleModel::AddRelativeForce(Vector3 force, Vector3 point) {
+	AddForce(force);
+}

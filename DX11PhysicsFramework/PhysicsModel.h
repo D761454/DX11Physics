@@ -55,6 +55,8 @@ public:
 
 	void ApplyImpulse(Vector3 impulse) { _velocity += impulse; }
 
+	virtual void AddRelativeForce(Vector3 force, Vector3 point);
+
 	bool IsCollideable() const { return _collider != nullptr; }
 	Collider* GetCollider() const { return _collider; }
 	void SetCollider(Collider* collider) { _collider = collider; }

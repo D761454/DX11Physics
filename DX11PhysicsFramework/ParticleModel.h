@@ -15,6 +15,8 @@ public:
 	ParticleModel(Transform* transform) : PhysicsModel(transform) {};
 	ParticleModel(Transform* transform, float resetTime, Vector3 pertubation, bool invertGravity);
 
+	virtual void AddRelativeForce(Vector3 force, Vector3 point) override;
+
 	void Update(float dt) override;
 
 	void Reset();
