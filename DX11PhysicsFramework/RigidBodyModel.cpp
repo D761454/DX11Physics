@@ -3,29 +3,64 @@
 RigidBodyModel::RigidBodyModel(Transform* transform) : PhysicsModel(transform) {
 	XMStoreFloat3x3(&_inertiaTensorMatrix, XMMatrixIdentity());
 
+	// comeback to clean up later either via a function or smth
+	/*B* B_static_cast(A * item)
+	{
+		return static_cast<B*>(item);
+	}
+
+	A* item = new B();
+	B_static_cast(item)->funtion_in_B();*/
+
 	SphereCollider* temp = dynamic_cast<SphereCollider*>(GetCollider());
 
-	// comeback to clean up later either via a function or smth
 	if (temp != nullptr) {
 		SetInertiaTensor(*temp);
 	}
 	
-	AxisAlignedBoundingBox* temp = dynamic_cast<AxisAlignedBoundingBox*>(GetCollider());
+	AxisAlignedBoundingBox* temp2 = dynamic_cast<AxisAlignedBoundingBox*>(GetCollider());
 
-	if (temp != nullptr) {
-		SetInertiaTensor(*temp);
+	if (temp2 != nullptr) {
+		SetInertiaTensor(*temp2);
 	}
 }
 
 void RigidBodyModel::SetInertiaTensor(SphereCollider& collider) {
-	_inertiaTensorMatrix._11 = 2 / 5 * GetMass() * (collider.GetRadius() * collider.GetRadius());
+	_inertiaTensorMatrix._11 = (2 / 5) * GetMass() * (collider.GetRadius() * collider.GetRadius());
+	_inertiaTensorMatrix._22 = (2 / 5) * GetMass() * (collider.GetRadius() * collider.GetRadius());
+	_inertiaTensorMatrix._33 = (2 / 5) * GetMass() * (collider.GetRadius() * collider.GetRadius());
 }
 
 void RigidBodyModel::SetInertiaTensor(AxisAlignedBoundingBox& collider) {
+	_inertiaTensorMatrix._11 = (1 / 12) * GetMass() * ((collider.GetHalfExtents().y * collider.GetHalfExtents().y) + (collider.GetHalfExtents().z * collider.GetHalfExtents().z));
+	_inertiaTensorMatrix._22 = (1 / 12) * GetMass() * ((collider.GetHalfExtents().x * collider.GetHalfExtents().x) + (collider.GetHalfExtents().z * collider.GetHalfExtents().z));;
+	_inertiaTensorMatrix._33 = (1 / 12) * GetMass() * ((collider.GetHalfExtents().x * collider.GetHalfExtents().x) + (collider.GetHalfExtents().y * collider.GetHalfExtents().y));;
+}
 
+void RigidBodyModel::CalculateAngularVelocity(float deltaTime) {
+	XMMATRIX angularAcceleration = XMMatrixInverse(nullptr, XMLoadFloat3x3(&_inertiaTensorMatrix));
+	XMVECTOR torque = XMVectorSet(_torque.x, _torque.y, _torque.z, 0);
+	XMVector3Transform(torque, angularAcceleration);
+
+	XMFLOAT3X3 temp; 
+	XMStoreFloat3x3(&temp, angularAcceleration);
+
+	_angularVelocity += Vector3(temp._11, temp._22, temp._33) * deltaTime;
 }
 
 void RigidBodyModel::Update(float dt) {
+	CalculateAngularVelocity(dt);
+
+	Quaternion orientation = _transform->GetOrientation();
+
+	orientation += orientation * _angularVelocity * 0.5 * dt;
+
+	if (orientation.Magnitude() != 0) {
+		orientation /= orientation.Magnitude();
+	}
+
+	_transform->SetOrientation(orientation);
+
 	PhysicsModel::Update(dt);
 }
 

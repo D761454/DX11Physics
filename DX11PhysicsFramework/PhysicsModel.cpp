@@ -34,3 +34,7 @@ void PhysicsModel::Update(float dt) {
 
 	_transform->SetPosition(position);
 }
+
+void PhysicsModel::AddRelativeForce(Vector3 force, Vector3 point) {
+	AddForce(force);
+}

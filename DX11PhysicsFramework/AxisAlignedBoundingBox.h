@@ -6,12 +6,14 @@
 class AxisAlignedBoundingBox : public Collider
 {
 	Vector3 min, max;
+	Vector3 halfExtents;
 
 public:
 	AxisAlignedBoundingBox(Transform* tf) : Collider(tf) {
 		// add/remove half width/height to get min and max from pos
 		min = tf->GetPosition() - tf->GetScale();
 		max = tf->GetPosition() + tf->GetScale();
+		halfExtents = max / 2;
 	}
 
 	virtual bool CollidesWith(Collider& other) override { return other.CollidesWith(*this); }
@@ -26,6 +28,7 @@ public:
 
 	Vector3 GetMin() const { return min; }
 	Vector3 GetMax() const { return max; }
+	Vector3 GetHalfExtents() const { return halfExtents; }
 
 	virtual float CalculatePenetrationDepth(Collider& other) override { return other.CalculatePenetrationDepth(*this); }
 	virtual float CalculatePenetrationDepth(SphereCollider& other) override { return 0.0f; }
