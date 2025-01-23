@@ -73,6 +73,9 @@
     <ClInclude Include="Plane.h">
       <Filter>Components\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11PhysicsFramework.cpp" />

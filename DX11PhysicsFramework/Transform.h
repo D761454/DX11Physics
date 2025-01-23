@@ -2,7 +2,7 @@
 
 #include <directxmath.h>
 #include <d3d11_1.h>
-#include "Vector3.h"
+#include "Quaternion.h"
 
 using namespace DirectX;
 
@@ -10,7 +10,7 @@ class Transform
 {
 private:
 	Vector3 _position;
-	Vector3 _rotation;
+	Quaternion _orientation;
 	Vector3 _scale;
 
 	XMFLOAT4X4 _world;
@@ -31,10 +31,13 @@ public:
 
 	Vector3 GetScale() const { return _scale; }
 
-	void SetRotation(Vector3 rotation) { _rotation = rotation; }
-	void SetRotation(float x, float y, float z) { _rotation.x = x; _rotation.y = y; _rotation.z = z; }
+	void SetRotation(Vector3 rotation) { _orientation = MakeQFromEulerAngles(rotation.x, rotation.y, rotation.z); }
+	void SetRotation(float x, float y, float z) { _orientation = MakeQFromEulerAngles(x, y, z); }
 
-	Vector3 GetRotation() const { return _rotation; }
+	void SetOrientation(Quaternion orientation) { _orientation = orientation; }
+
+	Vector3 GetRotation() const { return MakeEulerAnglesFromQ(_orientation); }
+	Quaternion GetOrientation() const { return _orientation; }
 
 	XMMATRIX GetWorldMatrix() const { return XMLoadFloat4x4(&_world); }
 	XMFLOAT4X4* GetWorld() { return &_world; }

@@ -521,7 +521,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	GameObject* gameObject = new GameObject("Floor", appearances["Floor"]);
 	gameObject->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
-	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
+	gameObject->GetTransform()->SetRotation(90.0f, 0.0f, 0.0f);
 	gameObject->GetAppearance()->SetTextureRV(_GroundTextureRV);
 	gameObject->GetPhysicsModel()->simulateGravity = false;
 	gameObject->GetPhysicsModel()->SetCollider(new Plane(gameObject->GetTransform(), Vector3(0.0f, 1.0f, 0.0f)));
@@ -678,9 +678,6 @@ void DX11PhysicsFramework::Update()
 					_gameObjects[1]->GetPhysicsModel()->ApplyImpulse(collisionNormal * ((1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) * j));
 					_gameObjects[2]->GetPhysicsModel()->ApplyImpulse(collisionNormal * -(((1 / _gameObjects[2]->GetPhysicsModel()->GetMass()) * j)));
 				}
-
-				/*_gameObjects[1]->GetPhysicsModel()->ApplyImpulse(Vector3(-1, 0, 0));
-				_gameObjects[2]->GetPhysicsModel()->ApplyImpulse(Vector3(1, 0, 0));*/
 
 				//Debug::DebugPrintF("Collision 1 to 2");
 			}

@@ -171,7 +171,7 @@ inline Vector3 QGetAxis(Quaternion q)
     v = q.GetVector();
     m = v.Magnitude();
 
-    if (m <= tol)
+    if (m <= 0.0001f)
         return Vector3();
     else
         return v / m;
