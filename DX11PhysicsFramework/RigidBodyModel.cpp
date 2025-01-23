@@ -61,6 +61,8 @@ void RigidBodyModel::Update(float dt) {
 
 	_transform->SetOrientation(orientation);
 
+	_angularVelocity *= pow(_angularDamping, dt);
+
 	PhysicsModel::Update(dt);
 }
 

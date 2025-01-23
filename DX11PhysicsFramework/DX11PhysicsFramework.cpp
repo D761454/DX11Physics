@@ -626,13 +626,15 @@ void DX11PhysicsFramework::Update()
 		}
 		if (GetAsyncKeyState('3'))
 		{
+			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, -1), Vector3(1, 0, -1));
 			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
-			_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
+			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
 		}
 		if (GetAsyncKeyState('4'))
 		{
+			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, 1), Vector3(-1, 0, 1));
 			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
-			_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
+			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
 		}
 		if (GetAsyncKeyState('5')) {
 			if (_gameObjects[2]->GetPhysicsModel()->constantAcceleration) {
@@ -659,11 +661,6 @@ void DX11PhysicsFramework::Update()
 					float j = vj * ((1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) + (1 / _gameObjects[2]->GetPhysicsModel()->GetMass()));
 
 					// solve interpenetrations
-					/*if (dynamic_cast<SphereCollider*>(_gameObjects[1]->GetPhysicsModel()->GetCollider()) != nullptr && dynamic_cast<SphereCollider*>(_gameObjects[2]->GetPhysicsModel()->GetCollider()) != nullptr) {
-						float depth = (_gameObjects[1]->GetTransform()->GetPosition() - _gameObjects[2]->GetTransform()->GetPosition()).Magnitude() 
-							- dynamic_cast<SphereCollider*>(_gameObjects[1]->GetPhysicsModel()->GetCollider())->GetRadius()
-							- dynamic_cast<SphereCollider*>(_gameObjects[2]->GetPhysicsModel()->GetCollider())->GetRadius();
-					}*/
 					float depth = _gameObjects[1]->GetPhysicsModel()->GetCollider()->CalculatePenetrationDepth(*_gameObjects[2]->GetPhysicsModel()->GetCollider());
 					Debug::DebugPrintF("%f \n", depth);
 
