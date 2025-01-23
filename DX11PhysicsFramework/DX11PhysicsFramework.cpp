@@ -611,7 +611,7 @@ void DX11PhysicsFramework::Update()
 	accumulator += _timer->GetDeltaTime();
 
 	while (accumulator >= FPS60) {
-		Debug::DebugPrintF("DeltaTime is %f had to loop %i times\n", accumulator, i);
+		//Debug::DebugPrintF("DeltaTime is %f had to loop %i times\n", accumulator, i);
 
 		// Move gameobjects
 		if (GetAsyncKeyState('1'))
@@ -654,7 +654,7 @@ void DX11PhysicsFramework::Update()
 				if (collisionNormal * relativeVelocity < 0.0f) {
 					float restitution = 0.0f;
 
-					float vj = (collisionNormal * relativeVelocity) * -(1 + restitution);
+					float vj = (collisionNormal * -(1 + restitution)) * relativeVelocity;
 
 					float j = vj * ((1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) + (1 / _gameObjects[2]->GetPhysicsModel()->GetMass()));
 
@@ -667,7 +667,9 @@ void DX11PhysicsFramework::Update()
 					float depth = _gameObjects[1]->GetPhysicsModel()->GetCollider()->CalculatePenetrationDepth(*_gameObjects[2]->GetPhysicsModel()->GetCollider());
 					Debug::DebugPrintF("%f \n", depth);
 
-					Vector3 temp = collisionNormal * depth * (1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) * (1 / _gameObjects[2]->GetPhysicsModel()->GetMass());
+					Vector3 temp = collisionNormal * depth;
+					temp *= (1 / _gameObjects[1]->GetPhysicsModel()->GetMass());
+					temp *= (1 / _gameObjects[2]->GetPhysicsModel()->GetMass());
 
 					_gameObjects[1]->GetTransform()->Move(temp);
 					temp.Reverse();
