@@ -46,10 +46,18 @@ public:
 
 		// normal force - gravity / against collision surface
 		if (_transform->GetPosition().y <= 0.5f) {
-			float force = 1.0f * (9.81f * _mass); // edit 1 to later be dependant on colliding object
 			Vector3 temp = _velocity;
+			Vector3 temp2 = temp;
 			temp.Reverse();
 			temp.Normalize();
+
+			temp2.Normalize();
+
+			float one = acosf((temp2 * Vector3(0, 1, 0)) / (temp2.Magnitude() * Vector3(0, 1, 0).Magnitude()));
+			float two = acosf((temp2 * Vector3(0, -1, 0)) / (temp2.Magnitude() * Vector3(0, -1, 0).Magnitude()));
+
+			float force = 1.0f * (_mass * 9.81f * cos(DegreesToRadians(180 - (one + two)))); // edit 1 to later be dependant on colliding object
+
 			return temp * force;
 		}
 		return Vector3(0, 0, 0);
