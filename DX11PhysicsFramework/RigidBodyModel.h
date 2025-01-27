@@ -8,7 +8,7 @@ private:
 protected:
 	Vector3 _torque;
 	XMFLOAT3X3 _inertiaTensorMatrix;
-	float _angularDamping = 0.99f;
+	float _angularDamping = 0.5f;
 	Vector3 _angularVelocity = Vector3(0, 0, 0);
 
 public:

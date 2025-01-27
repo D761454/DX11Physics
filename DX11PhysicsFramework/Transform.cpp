@@ -19,8 +19,7 @@ void Transform::Move(Vector3 direction) {
 void Transform::Update(float dt) {
 	// Calculate world matrix
 	XMMATRIX scale = XMMatrixScaling(_scale.x, _scale.y, _scale.z);
-	Quaternion temp = GetOrientation();
-	XMMATRIX rotation = XMMatrixRotationQuaternion(XMVectorSet(temp.GetVector().x, temp.GetVector().y, temp.GetVector().z, temp.GetScalar()));
+	XMMATRIX rotation = XMMatrixRotationQuaternion(XMVectorSet(_orientation.v.x, _orientation.v.y, _orientation.v.z, _orientation.n));
 	//XMMatrixRotationX(GetRotation().x) * XMMatrixRotationY(GetRotation().y) * XMMatrixRotationZ(GetRotation().z);
 	XMMATRIX translation = XMMatrixTranslation(_position.x, _position.y, _position.z);
 
@@ -30,8 +29,7 @@ void Transform::Update(float dt) {
 void Transform::Update(float dt, Transform* parent) {
 	// Calculate world matrix
 	XMMATRIX scale = XMMatrixScaling(_scale.x, _scale.y, _scale.z);
-	Quaternion temp = GetOrientation();
-	XMMATRIX rotation = XMMatrixRotationQuaternion(XMVectorSet(temp.GetVector().x, temp.GetVector().y, temp.GetVector().z, temp.GetScalar()));
+	XMMATRIX rotation = XMMatrixRotationQuaternion(XMVectorSet(_orientation.v.x, _orientation.v.y, _orientation.v.z, _orientation.n));
 	XMMATRIX translation = XMMatrixTranslation(_position.x, _position.y, _position.z);
 
 	XMStoreFloat4x4(&_world, scale * rotation * translation);

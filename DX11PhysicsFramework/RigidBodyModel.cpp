@@ -38,14 +38,14 @@ void RigidBodyModel::SetInertiaTensor(AxisAlignedBoundingBox& collider) {
 }
 
 void RigidBodyModel::CalculateAngularVelocity(float deltaTime) {
-	XMMATRIX angularAcceleration = XMMatrixInverse(nullptr, XMLoadFloat3x3(&_inertiaTensorMatrix));
+	XMMATRIX inverseInertiaTensor = XMMatrixInverse(nullptr, XMLoadFloat3x3(&_inertiaTensorMatrix));
 	XMVECTOR torque = XMVectorSet(_torque.x, _torque.y, _torque.z, 0);
-	XMVector3Transform(torque, angularAcceleration);
+	XMVECTOR angularAcceleration = XMVector3Transform(torque, inverseInertiaTensor);
 
-	XMFLOAT3X3 temp; 
-	XMStoreFloat3x3(&temp, angularAcceleration);
+	XMFLOAT3 temp;
+	XMStoreFloat3(&temp, angularAcceleration);
 
-	_angularVelocity += Vector3(temp._11, temp._22, temp._33) * deltaTime;
+	_angularVelocity += Vector3(temp.x, temp.y, temp.z) * deltaTime;
 }
 
 void RigidBodyModel::Update(float dt) {
