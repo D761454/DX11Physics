@@ -626,13 +626,13 @@ void DX11PhysicsFramework::Update()
 		}
 		if (GetAsyncKeyState('3'))
 		{
-			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, -1), Vector3(1, 0, -1));
+			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, -1), Vector3(1, 0, 1));
 			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
 			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
 		}
 		if (GetAsyncKeyState('4'))
 		{
-			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, 1), Vector3(-1, 0, 1));
+			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, 1), Vector3(1, 0, -1));
 			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
 			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
 		}
