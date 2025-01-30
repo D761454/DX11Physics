@@ -684,19 +684,16 @@ void DX11PhysicsFramework::Update()
 }
 
 void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
+	CollisionManifold manifold;
+
 	Transform* objATransform = A->GetTransform();
 	Transform* objBTransform = B->GetTransform();
 
 	PhysicsModel* objA = A->GetPhysicsModel();
 	PhysicsModel* objB = B->GetPhysicsModel();
 
-	if (objA->IsCollideable() && objB->IsCollideable() && objA->GetCollider()->CollidesWith(*objB->GetCollider())) {
-		// sphere collider works
-		Vector3 collisionNormal = objATransform->GetPosition() - objBTransform->GetPosition();
-		// for AABB
-		// 
-
-		collisionNormal.Normalize();
+	if (objA->IsCollideable() && objB->IsCollideable() && objA->GetCollider()->CollidesWith(*objB->GetCollider(), manifold)) {
+		Vector3 collisionNormal = manifold.collisionNormal;
 
 		Vector3 relativeVelocity = objA->GetVelocity() - objB->GetVelocity();
 
@@ -714,7 +711,7 @@ void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
 			float j = vj * invMassSum;
 
 			// solve interpenetrations
-			float depth = objA->GetCollider()->CalculatePenetrationDepth(*objB->GetCollider());
+			float depth = objA->GetCollider()->CalculatePenetrationDepth(*objB->GetCollider(), manifold);
 			Debug::DebugPrintF("%f \n", depth);
 
 			Vector3 temp = collisionNormal * depth;
@@ -728,6 +725,8 @@ void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
 
 			objA->ApplyImpulse(collisionNormal * (invMassA * j));
 			objB->ApplyImpulse(collisionNormal * -(invMassB * j));
+
+			manifold = CollisionManifold();
 		}
 	}
 }
