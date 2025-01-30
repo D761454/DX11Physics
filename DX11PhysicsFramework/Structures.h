@@ -2,6 +2,7 @@
 #include <cstring>
 #include <d3d11.h>
 #include <directxmath.h>
+#include "Vector3.h"
 
 using namespace DirectX;
 
@@ -73,3 +74,9 @@ struct Material
 	XMFLOAT4 ambient;
 	XMFLOAT4 specular;
 };
+
+struct ContactPoint {
+	Vector3 Position;
+	float PenetrationDepth;
+};
+

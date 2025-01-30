@@ -24,6 +24,11 @@ bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
 	return dist < (radius * radius);
 }
 
+/// <summary>
+/// WIP
+/// </summary>
+/// <param name="other"></param>
+/// <returns></returns>
 bool SphereCollider::CollidesWith(Plane& other) {
 	float projected = other.GetNRML() * (this->GetPosition() - other.GetPosition());
 

@@ -20,10 +20,20 @@ bool AxisAlignedBoundingBox::CollidesWith(AxisAlignedBoundingBox& other) {
 		(this->min.z <= other.max.z && this->max.z >= other.min.z);
 }
 
+/// <summary>
+/// WIP
+/// </summary>
+/// <param name="other"></param>
+/// <returns></returns>
 bool AxisAlignedBoundingBox::CollidesWith(Plane& other) {
 	return false;
 }
 
+/// <summary>
+/// WIP		-- remember - AA so no rotation in collidable space
+/// </summary>
+/// <param name="other"></param>
+/// <returns></returns>
 float AxisAlignedBoundingBox::CalculatePenetrationDepth(AxisAlignedBoundingBox& other) {
 	// closest pt
 	Vector3 const closestPt = Vector3(
