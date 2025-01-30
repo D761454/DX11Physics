@@ -525,6 +525,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetAppearance()->SetTextureRV(_GroundTextureRV);
 	gameObject->GetPhysicsModel()->simulateGravity = false;
 	gameObject->GetPhysicsModel()->SetCollider(new Plane(gameObject->GetTransform(), Vector3(0.0f, 1.0f, 0.0f)));
+	gameObject->GetPhysicsModel()->SetMass(0);
 
 	_gameObjects.push_back(gameObject);
 
@@ -645,13 +646,7 @@ void DX11PhysicsFramework::Update()
 			}
 		}
 
-		ResolveCollision();
-
-		if (_gameObjects[0]->GetPhysicsModel()->IsCollideable() && _gameObjects[1]->GetPhysicsModel()->IsCollideable()) {
-			if (_gameObjects[0]->GetPhysicsModel()->GetCollider()->CollidesWith(*_gameObjects[1]->GetPhysicsModel()->GetCollider())) {
-				//Debug::DebugPrintF("Collision 0 to 1");
-			}
-		}
+		ResolveCollision(_gameObjects[1], _gameObjects[2]);
 
 		// Update camera
 		float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
@@ -688,12 +683,12 @@ void DX11PhysicsFramework::Update()
 	_timer->Tick();
 }
 
-void DX11PhysicsFramework::ResolveCollision() {
-	Transform* objATransform = _gameObjects[1]->GetTransform();
-	Transform* objBTransform = _gameObjects[2]->GetTransform();
+void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
+	Transform* objATransform = A->GetTransform();
+	Transform* objBTransform = B->GetTransform();
 
-	PhysicsModel* objA = _gameObjects[1]->GetPhysicsModel();
-	PhysicsModel* objB = _gameObjects[2]->GetPhysicsModel();
+	PhysicsModel* objA = A->GetPhysicsModel();
+	PhysicsModel* objB = B->GetPhysicsModel();
 
 	if (objA->IsCollideable() && objB->IsCollideable() && objA->GetCollider()->CollidesWith(*objB->GetCollider())) {
 		Vector3 collisionNormal = objATransform->GetPosition() - objBTransform->GetPosition();
@@ -719,8 +714,6 @@ void DX11PhysicsFramework::ResolveCollision() {
 			Debug::DebugPrintF("%f \n", depth);
 
 			Vector3 temp = collisionNormal * depth;
-			/*temp *= (1 / objA->GetMass());
-			temp *= (1 / objB->GetMass());*/
 			temp *= invMassSum;
 
 			objATransform->Move(temp);

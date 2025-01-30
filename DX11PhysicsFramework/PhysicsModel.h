@@ -26,8 +26,10 @@ public:
 	void SetVelocity(Vector3 velocity) { _velocity = velocity; }
 	Vector3 GetAcceleration() const { return _acceleration; }
 	void SetAcceleration(Vector3 acceleration) { _acceleration = acceleration; }
+
+	void SetMass(float mass) { _mass = mass; };
 	float GetMass() const { return _mass; }
-	float GetInverseMass() const { if (_mass == 0) { return 0.0f; } return 1 / _mass; }
+	float GetInverseMass() const { if (_mass == 0) { return 0.0f; } return 1.0f / _mass; }
 
 	void AddForce(Vector3 force) { _netforce += force; }
 	Vector3 GravityForce() { 

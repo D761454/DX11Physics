@@ -5,6 +5,10 @@ PhysicsModel::PhysicsModel(Transform* transform) {
 }
 
 void PhysicsModel::Update(float dt) {
+	if (_mass == 0) {
+		return;
+	}
+
 	Vector3 position = _transform->GetPosition();
 	if (_collider) {
 		_collider->Update(dt);

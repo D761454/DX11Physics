@@ -97,7 +97,7 @@ public:
 
 	bool HandleKeyboard(MSG msg);
 	void Update();
-	void ResolveCollision();
+	void ResolveCollision(GameObject* A, GameObject* B);
 	void Draw();
 };
 

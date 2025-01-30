@@ -38,6 +38,10 @@ void RigidBodyModel::SetInertiaTensor(AxisAlignedBoundingBox& collider) {
 }
 
 void RigidBodyModel::CalculateAngularVelocity(float deltaTime) {
+	if (_mass == 0) {
+		return;
+	}
+
 	XMMATRIX inverseInertiaTensor = XMMatrixInverse(nullptr, XMLoadFloat3x3(&_inertiaTensorMatrix));
 	XMVECTOR torque = XMVectorSet(_torque.x, _torque.y, _torque.z, 0);
 	XMVECTOR angularAcceleration = XMVector3Transform(torque, inverseInertiaTensor);
@@ -49,6 +53,8 @@ void RigidBodyModel::CalculateAngularVelocity(float deltaTime) {
 }
 
 void RigidBodyModel::Update(float dt) {
+	PhysicsModel::Update(dt);
+
 	CalculateAngularVelocity(dt);
 
 	Quaternion orientation = _transform->GetOrientation();
@@ -62,8 +68,6 @@ void RigidBodyModel::Update(float dt) {
 	_transform->SetOrientation(orientation);
 
 	_angularVelocity *= pow(_angularDamping, dt);
-
-	PhysicsModel::Update(dt);
 }
 
 void RigidBodyModel::AddRelativeForce(Vector3 force, Vector3 point) {
