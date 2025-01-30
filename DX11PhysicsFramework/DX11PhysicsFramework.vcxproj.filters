@@ -67,10 +67,10 @@
     <ClInclude Include="ParticleModel.h">
       <Filter>Components\Models</Filter>
     </ClInclude>
-    <ClInclude Include="AxisAlignedBoundingBox.h">
+    <ClInclude Include="AABBCollider.h">
       <Filter>Components\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="Plane.h">
+    <ClInclude Include="PlaneCollider.h">
       <Filter>Components\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Quaternion.h">
@@ -116,10 +116,10 @@
     <ClCompile Include="PhysicsModel.cpp">
       <Filter>Components\Models</Filter>
     </ClCompile>
-    <ClCompile Include="AxisAlignedBoundingBox.cpp">
+    <ClCompile Include="AABBCollider.cpp">
       <Filter>Components\Colliders</Filter>
     </ClCompile>
-    <ClCompile Include="Plane.cpp">
+    <ClCompile Include="PlaneCollider.cpp">
       <Filter>Components\Colliders</Filter>
     </ClCompile>
   </ItemGroup>

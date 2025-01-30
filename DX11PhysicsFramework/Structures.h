@@ -80,3 +80,8 @@ struct ContactPoint {
 	float PenetrationDepth;
 };
 
+struct CollisionManifold {
+	int contactPointCount = 0;
+	ContactPoint points[4];
+	Vector3 collisionNormal;
+};

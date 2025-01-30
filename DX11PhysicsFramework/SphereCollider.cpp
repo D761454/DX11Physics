@@ -1,6 +1,6 @@
 #include "SphereCollider.h"
 
-bool SphereCollider::CollidesWith(SphereCollider& other) {
+bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	float combinedRadii = other.radius + radius;
 	Vector3 between = other.GetPosition() - this->GetPosition();
 
@@ -11,7 +11,7 @@ bool SphereCollider::CollidesWith(SphereCollider& other) {
 	return false;
 }
 
-bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
+bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	Vector3 const closestPt = Vector3(
 		max(other.GetMin().x, min(this->GetPosition().x, other.GetMax().x)), 
 		max(other.GetMin().y, min(this->GetPosition().y, other.GetMax().y)), 
@@ -29,7 +29,7 @@ bool SphereCollider::CollidesWith(AxisAlignedBoundingBox& other) {
 /// </summary>
 /// <param name="other"></param>
 /// <returns></returns>
-bool SphereCollider::CollidesWith(Plane& other) {
+bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 	float projected = other.GetNRML() * (this->GetPosition() - other.GetPosition());
 
 	Vector3 temp = this->GetPosition() - other.GetPosition();
@@ -46,6 +46,6 @@ bool SphereCollider::CollidesWith(Plane& other) {
 	return dist < (radius * radius);
 }
 
-float SphereCollider::CalculatePenetrationDepth(SphereCollider& other) {
+float SphereCollider::CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) {
 	return (this->GetPosition() - other.GetPosition()).Magnitude() - this->GetRadius() - other.GetRadius();
 }

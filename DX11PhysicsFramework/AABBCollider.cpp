@@ -1,6 +1,6 @@
-#include "AxisAlignedBoundingBox.h"
+#include "AABBCollider.h"
 
-bool AxisAlignedBoundingBox::CollidesWith(SphereCollider& other) {
+bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	Vector3 const closestPt = Vector3(
 		max(this->min.x, min(other.GetPosition().x, this->max.x)), 
 		max(this->min.y, min(other.GetPosition().y, this->max.y)), 
@@ -14,7 +14,7 @@ bool AxisAlignedBoundingBox::CollidesWith(SphereCollider& other) {
 	return dist < (other.GetRadius() * other.GetRadius());
 }
 
-bool AxisAlignedBoundingBox::CollidesWith(AxisAlignedBoundingBox& other) {
+bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	return (this->min.x <= other.max.x && this->max.x >= other.min.x) &&
 		(this->min.y <= other.max.y && this->max.y >= other.min.y) &&
 		(this->min.z <= other.max.z && this->max.z >= other.min.z);
@@ -25,7 +25,7 @@ bool AxisAlignedBoundingBox::CollidesWith(AxisAlignedBoundingBox& other) {
 /// </summary>
 /// <param name="other"></param>
 /// <returns></returns>
-bool AxisAlignedBoundingBox::CollidesWith(Plane& other) {
+bool AABBCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 	return false;
 }
 
@@ -34,7 +34,7 @@ bool AxisAlignedBoundingBox::CollidesWith(Plane& other) {
 /// </summary>
 /// <param name="other"></param>
 /// <returns></returns>
-float AxisAlignedBoundingBox::CalculatePenetrationDepth(AxisAlignedBoundingBox& other) {
+float AABBCollider::CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) {
 	// closest pt
 	Vector3 const closestPt = Vector3(
 		max(this->min.x, min(other.GetPosition().x, this->max.x)), 

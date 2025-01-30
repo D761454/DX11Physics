@@ -2,8 +2,8 @@
 
 #include "Transform.h"
 #include "SphereCollider.h"
-#include "AxisAlignedBoundingBox.h"
-#include "Plane.h"
+#include "AABBCollider.h"
+#include "PlaneCollider.h"
 #include "Debug.h"
 
 class PhysicsModel abstract

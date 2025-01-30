@@ -1,26 +1,26 @@
 #pragma once
 #include "Collider.h"
 #include "AABBCollider.h"
-#include "PlaneCollider.h"
+#include "SphereCollider.h"
 
-class SphereCollider : public Collider
+class PlaneCollider : public Collider
 {
-	float radius = 1.0f;
+	Vector3 normal;
 
 public:
-	SphereCollider(Transform* tf, float r) : Collider(tf) { radius = r; }
+	PlaneCollider(Transform* tf, Vector3 n) : Collider(tf) { normal = n; normal.Normalize(); }
 
 	virtual bool CollidesWith(Collider& other, CollisionManifold& out) override { return other.CollidesWith(*this, out); }
 	virtual bool CollidesWith(SphereCollider& other, CollisionManifold& out) override;
 	virtual bool CollidesWith(AABBCollider& other, CollisionManifold& out) override;
 	virtual bool CollidesWith(PlaneCollider& other, CollisionManifold& out) override;
 
-	float GetRadius() const { return radius; }
-
 	virtual void Update(float dt) override {}
 
+	Vector3 GetNRML() const { return normal; }
+
 	virtual float CalculatePenetrationDepth(Collider& other, CollisionManifold& out) override { return other.CalculatePenetrationDepth(*this, out); }
-	virtual float CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) override;
+	virtual float CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) override { return 0.0f; }
 	virtual float CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) override { return 0.0f; }
 };
 

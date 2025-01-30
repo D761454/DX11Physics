@@ -524,7 +524,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetTransform()->SetRotation(90.0f, 0.0f, 0.0f);
 	gameObject->GetAppearance()->SetTextureRV(_GroundTextureRV);
 	gameObject->GetPhysicsModel()->simulateGravity = false;
-	gameObject->GetPhysicsModel()->SetCollider(new Plane(gameObject->GetTransform(), Vector3(0.0f, 1.0f, 0.0f)));
+	gameObject->GetPhysicsModel()->SetCollider(new PlaneCollider(gameObject->GetTransform(), Vector3(0.0f, 1.0f, 0.0f)));
 	gameObject->GetPhysicsModel()->SetMass(0);
 
 	_gameObjects.push_back(gameObject);

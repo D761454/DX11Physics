@@ -1,10 +1,10 @@
-#include "Plane.h"
+#include "PlaneCollider.h"
 
-bool Plane::CollidesWith(Plane& other) {
+bool PlaneCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 	return false;
 }
 
-bool Plane::CollidesWith(SphereCollider& other) {
+bool PlaneCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	float projected = normal * (other.GetPosition() - this->GetPosition());
 
 	Vector3 temp = other.GetPosition() - this->GetPosition();
@@ -21,7 +21,7 @@ bool Plane::CollidesWith(SphereCollider& other) {
 	return dist < (other.GetRadius() * other.GetRadius());
 }
 
-bool Plane::CollidesWith(AxisAlignedBoundingBox& other) {
+bool PlaneCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	return false;
 }
 

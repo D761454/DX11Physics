@@ -15,7 +15,7 @@ public:
 	RigidBodyModel(Transform* transform);
 
 	void SetInertiaTensor(SphereCollider& collider);
-	void SetInertiaTensor(AxisAlignedBoundingBox& collider);
+	void SetInertiaTensor(AABBCollider& collider);
 
 	void CalculateAngularVelocity(float deltaTime);
 

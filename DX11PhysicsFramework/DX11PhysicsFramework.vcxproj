@@ -371,7 +371,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Appearance.cpp" />
-    <ClCompile Include="AxisAlignedBoundingBox.cpp" />
+    <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DX11PhysicsFramework.cpp" />
@@ -382,7 +382,7 @@
     <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="ParticleModel.cpp" />
     <ClCompile Include="PhysicsModel.cpp" />
-    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="PlaneCollider.cpp" />
     <ClCompile Include="RigidBodyModel.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -397,7 +397,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Appearance.h" />
-    <ClInclude Include="AxisAlignedBoundingBox.h" />
+    <ClInclude Include="AABBCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="DX11PhysicsFramework.h" />
@@ -407,7 +407,7 @@
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="ParticleModel.h" />
     <ClInclude Include="PhysicsModel.h" />
-    <ClInclude Include="Plane.h" />
+    <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="Quaternion.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="RigidBodyModel.h" />

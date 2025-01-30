@@ -18,7 +18,7 @@ RigidBodyModel::RigidBodyModel(Transform* transform) : PhysicsModel(transform) {
 		SetInertiaTensor(*temp);
 	}
 	
-	AxisAlignedBoundingBox* temp2 = dynamic_cast<AxisAlignedBoundingBox*>(GetCollider());
+	AABBCollider* temp2 = dynamic_cast<AABBCollider*>(GetCollider());
 
 	if (temp2 != nullptr) {
 		SetInertiaTensor(*temp2);
@@ -31,7 +31,7 @@ void RigidBodyModel::SetInertiaTensor(SphereCollider& collider) {
 	_inertiaTensorMatrix._33 = (2 / 5) * GetMass() * (collider.GetRadius() * collider.GetRadius());
 }
 
-void RigidBodyModel::SetInertiaTensor(AxisAlignedBoundingBox& collider) {
+void RigidBodyModel::SetInertiaTensor(AABBCollider& collider) {
 	_inertiaTensorMatrix._11 = (1 / 12) * GetMass() * ((collider.GetHalfExtents().y * collider.GetHalfExtents().y) + (collider.GetHalfExtents().z * collider.GetHalfExtents().z));
 	_inertiaTensorMatrix._22 = (1 / 12) * GetMass() * ((collider.GetHalfExtents().x * collider.GetHalfExtents().x) + (collider.GetHalfExtents().z * collider.GetHalfExtents().z));;
 	_inertiaTensorMatrix._33 = (1 / 12) * GetMass() * ((collider.GetHalfExtents().x * collider.GetHalfExtents().x) + (collider.GetHalfExtents().y * collider.GetHalfExtents().y));;
