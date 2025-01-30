@@ -31,15 +31,7 @@ float AxisAlignedBoundingBox::CalculatePenetrationDepth(AxisAlignedBoundingBox& 
 		max(this->min.y, min(other.GetPosition().y, this->max.y)), 
 		max(this->min.z, min(other.GetPosition().z, this->max.z)));
 
-	float temp = closestPt.x - other.GetPosition().x;
-	if (temp < closestPt.y - other.GetPosition().y) {
-		temp = closestPt.y - other.GetPosition().y;
-	}
-	if (temp < closestPt.z - other.GetPosition().z) {
-		temp = closestPt.z - other.GetPosition().z;
-	}
-
-	const float dist = 
+	const float dist = (other.GetPosition() - closestPt).Magnitude();
 
 	return 0;
 }
