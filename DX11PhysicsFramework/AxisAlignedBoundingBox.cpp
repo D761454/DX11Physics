@@ -1,13 +1,15 @@
 #include "AxisAlignedBoundingBox.h"
 
 bool AxisAlignedBoundingBox::CollidesWith(SphereCollider& other) {
-	const float x = max(this->min.x, min(other.GetPosition().x, this->max.x));
-	const float y = max(this->min.y, min(other.GetPosition().y, this->max.y));
-	const float z = max(this->min.z, min(other.GetPosition().z, this->max.z));
+	Vector3 const closestPt = Vector3(
+		max(this->min.x, min(other.GetPosition().x, this->max.x)), 
+		max(this->min.y, min(other.GetPosition().y, this->max.y)), 
+		max(this->min.z, min(other.GetPosition().z, this->max.z)));
 
-	const float dist = (x - other.GetPosition().x) * (x - other.GetPosition().x) +
-		(y - other.GetPosition().y) * (y - other.GetPosition().y) +
-		(z - other.GetPosition().z) * (z - other.GetPosition().z);
+	// is point in sphere
+	const float dist = (closestPt.x - other.GetPosition().x) * (closestPt.x - other.GetPosition().x) +
+		(closestPt.y - other.GetPosition().y) * (closestPt.y - other.GetPosition().y) +
+		(closestPt.z - other.GetPosition().z) * (closestPt.z - other.GetPosition().z);
 
 	return dist < (other.GetRadius() * other.GetRadius());
 }
@@ -20,4 +22,24 @@ bool AxisAlignedBoundingBox::CollidesWith(AxisAlignedBoundingBox& other) {
 
 bool AxisAlignedBoundingBox::CollidesWith(Plane& other) {
 	return false;
+}
+
+float AxisAlignedBoundingBox::CalculatePenetrationDepth(AxisAlignedBoundingBox& other) {
+	// closest pt
+	Vector3 const closestPt = Vector3(
+		max(this->min.x, min(other.GetPosition().x, this->max.x)), 
+		max(this->min.y, min(other.GetPosition().y, this->max.y)), 
+		max(this->min.z, min(other.GetPosition().z, this->max.z)));
+
+	float temp = closestPt.x - other.GetPosition().x;
+	if (temp < closestPt.y - other.GetPosition().y) {
+		temp = closestPt.y - other.GetPosition().y;
+	}
+	if (temp < closestPt.z - other.GetPosition().z) {
+		temp = closestPt.z - other.GetPosition().z;
+	}
+
+	const float dist = 
+
+	return 0;
 }
