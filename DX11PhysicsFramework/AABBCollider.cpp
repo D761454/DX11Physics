@@ -2,9 +2,9 @@
 
 bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	Vector3 const closestPt = Vector3(
-		max(this->min.x, min(other.GetPosition().x, this->max.x)), 
-		max(this->min.y, min(other.GetPosition().y, this->max.y)), 
-		max(this->min.z, min(other.GetPosition().z, this->max.z)));
+		max(min.x, min(other.GetPosition().x, max.x)), 
+		max(min.y, min(other.GetPosition().y, max.y)), 
+		max(min.z, min(other.GetPosition().z, max.z)));
 
 	// is point in sphere
 	const float dist = (closestPt.x - other.GetPosition().x) * (closestPt.x - other.GetPosition().x) +
@@ -15,9 +15,9 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 }
 
 bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
-	return (this->min.x <= other.max.x && this->max.x >= other.min.x) &&
-		(this->min.y <= other.max.y && this->max.y >= other.min.y) &&
-		(this->min.z <= other.max.z && this->max.z >= other.min.z);
+	return (min.x <= other.max.x && max.x >= other.min.x) &&
+		(min.y <= other.max.y && max.y >= other.min.y) &&
+		(min.z <= other.max.z && max.z >= other.min.z);
 }
 
 /// <summary>
@@ -37,9 +37,9 @@ bool AABBCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 float AABBCollider::CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) {
 	// closest pt
 	Vector3 const closestPt = Vector3(
-		max(this->min.x, min(other.GetPosition().x, this->max.x)), 
-		max(this->min.y, min(other.GetPosition().y, this->max.y)), 
-		max(this->min.z, min(other.GetPosition().z, this->max.z)));
+		max(min.x, min(other.GetPosition().x, max.x)), 
+		max(min.y, min(other.GetPosition().y, max.y)), 
+		max(min.z, min(other.GetPosition().z, max.z)));
 
 	const float dist = (other.GetPosition() - closestPt).Magnitude();
 

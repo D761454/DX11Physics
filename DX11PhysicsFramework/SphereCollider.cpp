@@ -2,9 +2,15 @@
 
 bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	float combinedRadii = other.radius + radius;
-	Vector3 between = other.GetPosition() - this->GetPosition();
+	Vector3 between = other.GetPosition() - GetPosition();
 
 	if (between.Magnitude() < combinedRadii) {
+		out.collisionNormal = between;
+		out.collisionNormal.Normalize();
+		out.contactPointCount = 1;
+		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
+		out.points[0].PenetrationDepth = fabs(between.Magnitude() - combinedRadii);
+
 		return true;
 	}
 
@@ -13,13 +19,13 @@ bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out)
 
 bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	Vector3 const closestPt = Vector3(
-		max(other.GetMin().x, min(this->GetPosition().x, other.GetMax().x)), 
-		max(other.GetMin().y, min(this->GetPosition().y, other.GetMax().y)), 
-		max(other.GetMin().z, min(this->GetPosition().z, other.GetMax().z)));
+		max(other.GetMin().x, min(GetPosition().x, other.GetMax().x)), 
+		max(other.GetMin().y, min(GetPosition().y, other.GetMax().y)), 
+		max(other.GetMin().z, min(GetPosition().z, other.GetMax().z)));
 
-	const float dist = (closestPt.x - this->GetPosition().x) * (closestPt.x - this->GetPosition().x) +
-		(closestPt.y - this->GetPosition().y) * (closestPt.y - this->GetPosition().y) +
-		(closestPt.z - this->GetPosition().z) * (closestPt.z - this->GetPosition().z);
+	const float dist = (closestPt.x - GetPosition().x) * (closestPt.x - GetPosition().x) +
+		(closestPt.y - GetPosition().y) * (closestPt.y - GetPosition().y) +
+		(closestPt.z - GetPosition().z) * (closestPt.z - GetPosition().z);
 
 	return dist < (radius * radius);
 }
@@ -30,22 +36,22 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 /// <param name="other"></param>
 /// <returns></returns>
 bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
-	float projected = other.GetNRML() * (this->GetPosition() - other.GetPosition());
+	float projected = other.GetNRML() * (GetPosition() - other.GetPosition());
 
-	Vector3 temp = this->GetPosition() - other.GetPosition();
+	Vector3 temp = GetPosition() - other.GetPosition();
 	temp.Normalize();
 	temp.Reverse();
 
-	Vector3 closestPtOnPlane = this->GetPosition() - (temp * projected);
+	Vector3 closestPtOnPlane = GetPosition() - (temp * projected);
 	//Vector3 closestPtOnSphere = other.GetPosition() - (temp * other.GetRadius());
 
-	const float dist = (closestPtOnPlane.x - this->GetPosition().x) * (closestPtOnPlane.x - this->GetPosition().x) +
-		(closestPtOnPlane.y - this->GetPosition().y) * (closestPtOnPlane.y - this->GetPosition().y) +
-		(closestPtOnPlane.z - this->GetPosition().z) * (closestPtOnPlane.z - this->GetPosition().z);
+	const float dist = (closestPtOnPlane.x - GetPosition().x) * (closestPtOnPlane.x - GetPosition().x) +
+		(closestPtOnPlane.y - GetPosition().y) * (closestPtOnPlane.y - GetPosition().y) +
+		(closestPtOnPlane.z - GetPosition().z) * (closestPtOnPlane.z - GetPosition().z);
 
 	return dist < (radius * radius);
 }
 
 float SphereCollider::CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) {
-	return (this->GetPosition() - other.GetPosition()).Magnitude() - this->GetRadius() - other.GetRadius();
+	return (GetPosition() - other.GetPosition()).Magnitude() - GetRadius() - other.GetRadius();
 }

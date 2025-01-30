@@ -5,9 +5,9 @@ bool PlaneCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 }
 
 bool PlaneCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
-	float projected = normal * (other.GetPosition() - this->GetPosition());
+	float projected = normal * (other.GetPosition() - GetPosition());
 
-	Vector3 temp = other.GetPosition() - this->GetPosition();
+	Vector3 temp = other.GetPosition() - GetPosition();
 	temp.Normalize();
 	temp.Reverse();
 
