@@ -97,6 +97,7 @@ public:
 
 	bool HandleKeyboard(MSG msg);
 	void Update();
+	void ResolveCollision();
 	void Draw();
 };
 

@@ -645,40 +645,7 @@ void DX11PhysicsFramework::Update()
 			}
 		}
 
-		if (_gameObjects[1]->GetPhysicsModel()->IsCollideable() && _gameObjects[2]->GetPhysicsModel()->IsCollideable()) {
-			if (_gameObjects[1]->GetPhysicsModel()->GetCollider()->CollidesWith(*_gameObjects[2]->GetPhysicsModel()->GetCollider())) {
-				Vector3 collisionNormal = _gameObjects[1]->GetTransform()->GetPosition() - _gameObjects[2]->GetTransform()->GetPosition();
-				collisionNormal.Normalize();
-
-				Vector3 relativeVelocity = _gameObjects[1]->GetPhysicsModel()->GetVelocity() - _gameObjects[2]->GetPhysicsModel()->GetVelocity();
-				
-				// dot product - check if moving away from collision or not
-				if (collisionNormal * relativeVelocity < 0.0f) {
-					float restitution = 0.0f;
-
-					float vj = (collisionNormal * -(1 + restitution)) * relativeVelocity;
-
-					float j = vj * ((1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) + (1 / _gameObjects[2]->GetPhysicsModel()->GetMass()));
-
-					// solve interpenetrations
-					float depth = _gameObjects[1]->GetPhysicsModel()->GetCollider()->CalculatePenetrationDepth(*_gameObjects[2]->GetPhysicsModel()->GetCollider());
-					Debug::DebugPrintF("%f \n", depth);
-
-					Vector3 temp = collisionNormal * depth;
-					temp *= (1 / _gameObjects[1]->GetPhysicsModel()->GetMass());
-					temp *= (1 / _gameObjects[2]->GetPhysicsModel()->GetMass());
-
-					_gameObjects[1]->GetTransform()->Move(temp);
-					temp.Reverse();
-					_gameObjects[2]->GetTransform()->Move(temp);
-
-					_gameObjects[1]->GetPhysicsModel()->ApplyImpulse(collisionNormal * ((1 / _gameObjects[1]->GetPhysicsModel()->GetMass()) * j));
-					_gameObjects[2]->GetPhysicsModel()->ApplyImpulse(collisionNormal * -(((1 / _gameObjects[2]->GetPhysicsModel()->GetMass()) * j)));
-				}
-
-				//Debug::DebugPrintF("Collision 1 to 2");
-			}
-		}
+		ResolveCollision();
 
 		if (_gameObjects[0]->GetPhysicsModel()->IsCollideable() && _gameObjects[1]->GetPhysicsModel()->IsCollideable()) {
 			if (_gameObjects[0]->GetPhysicsModel()->GetCollider()->CollidesWith(*_gameObjects[1]->GetPhysicsModel()->GetCollider())) {
@@ -719,6 +686,51 @@ void DX11PhysicsFramework::Update()
 	const double alpha = accumulator / FPS60;
 
 	_timer->Tick();
+}
+
+void DX11PhysicsFramework::ResolveCollision() {
+	Transform* objATransform = _gameObjects[1]->GetTransform();
+	Transform* objBTransform = _gameObjects[2]->GetTransform();
+
+	PhysicsModel* objA = _gameObjects[1]->GetPhysicsModel();
+	PhysicsModel* objB = _gameObjects[2]->GetPhysicsModel();
+
+	if (objA->IsCollideable() && objB->IsCollideable() && objA->GetCollider()->CollidesWith(*objB->GetCollider())) {
+		Vector3 collisionNormal = objATransform->GetPosition() - objBTransform->GetPosition();
+		collisionNormal.Normalize();
+
+		Vector3 relativeVelocity = objA->GetVelocity() - objB->GetVelocity();
+
+		// dot product - check if moving away from collision or not
+		if (collisionNormal * relativeVelocity < 0.0f) {
+			float restitution = 0.2f;
+
+			float invMassA = objA->GetInverseMass();
+			float invMassB = objB->GetInverseMass();
+
+			float invMassSum = invMassA + invMassB;
+
+			float vj = (collisionNormal * -(1 + restitution)) * relativeVelocity;
+
+			float j = vj * invMassSum;
+
+			// solve interpenetrations
+			float depth = objA->GetCollider()->CalculatePenetrationDepth(*objB->GetCollider());
+			Debug::DebugPrintF("%f \n", depth);
+
+			Vector3 temp = collisionNormal * depth;
+			/*temp *= (1 / objA->GetMass());
+			temp *= (1 / objB->GetMass());*/
+			temp *= invMassSum;
+
+			objATransform->Move(temp);
+			temp.Reverse();
+			objBTransform->Move(temp);
+
+			objA->ApplyImpulse(collisionNormal * (invMassA * j));
+			objB->ApplyImpulse(collisionNormal * -(invMassB * j));
+		}
+	}
 }
 
 void DX11PhysicsFramework::Draw()
