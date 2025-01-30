@@ -10,7 +10,7 @@ bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out)
 		out.contactPointCount = 1;
 		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
 		out.points[0].PenetrationDepth = fabs(between.Magnitude() - combinedRadii);
-
+		// doing this in collides with means no specific collider info needed in main program
 		return true;
 	}
 
