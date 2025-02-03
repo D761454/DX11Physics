@@ -28,10 +28,6 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 
 	const float dist = between.Magnitude();
 
-	/*const float dist = (closestPt.x - GetPosition().x) * (closestPt.x - GetPosition().x) +
-		(closestPt.y - GetPosition().y) * (closestPt.y - GetPosition().y) +
-		(closestPt.z - GetPosition().z) * (closestPt.z - GetPosition().z);*/
-
 	if (dist < radius) {
 		out.collisionNormal = between;
 		out.collisionNormal.Normalize();
