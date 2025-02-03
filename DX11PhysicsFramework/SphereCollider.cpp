@@ -25,7 +25,6 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 		max(other.GetMin().z, min(GetPosition().z, other.GetMax().z)));
 
 	Vector3 between = closestPt - GetPosition();
-	//Vector3 diff = ; // get axis we pentrate the most
 
 	const float dist = between.Magnitude();
 
@@ -52,20 +51,22 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 /// <param name="other"></param>
 /// <returns></returns>
 bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
-	float projected = other.GetNRML() * (GetPosition() - other.GetPosition());
+	// returns plane facing axis pos e.g. y pos / returns sphere pos on plane facing axis
+	const float distToPlane = (other.GetPosition() * other.GetNRML()) - (GetPosition() * other.GetNRML());
 
-	Vector3 temp = GetPosition() - other.GetPosition();
-	temp.Normalize();
-	temp.Reverse();
+	Vector3 between = (GetPosition() - (other.GetNRML() * distToPlane)) - GetPosition();
 
-	Vector3 closestPtOnPlane = GetPosition() - (temp * projected);
-	//Vector3 closestPtOnSphere = other.GetPosition() - (temp * other.GetRadius());
+	if (distToPlane < radius) {
+		out.collisionNormal = between;
+		out.collisionNormal.Normalize();
+		out.contactPointCount = 1;
+		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
+		out.points[0].PenetrationDepth = fabs(distToPlane - radius);
 
-	const float dist = (closestPtOnPlane.x - GetPosition().x) * (closestPtOnPlane.x - GetPosition().x) +
-		(closestPtOnPlane.y - GetPosition().y) * (closestPtOnPlane.y - GetPosition().y) +
-		(closestPtOnPlane.z - GetPosition().z) * (closestPtOnPlane.z - GetPosition().z);
+		return true;
+	}
 
-	return dist < (radius * radius);
+	return false;
 }
 
 float SphereCollider::CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) {

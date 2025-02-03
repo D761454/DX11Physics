@@ -646,6 +646,7 @@ void DX11PhysicsFramework::Update()
 			}
 		}
 
+		ResolveCollision(_gameObjects[0], _gameObjects[1]);
 		ResolveCollision(_gameObjects[1], _gameObjects[2]);
 
 		// Update camera
