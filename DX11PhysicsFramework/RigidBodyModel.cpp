@@ -52,6 +52,10 @@ void RigidBodyModel::CalculateAngularVelocity(float deltaTime) {
 	_angularVelocity += Vector3(temp.x, temp.y, temp.z) * deltaTime;
 }
 
+/// <summary>
+/// fix to slow rotation
+/// </summary>
+/// <param name="dt"></param>
 void RigidBodyModel::Update(float dt) {
 	PhysicsModel::Update(dt);
 

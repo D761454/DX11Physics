@@ -14,6 +14,7 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	return dist < (other.GetRadius() * other.GetRadius());
 }
 
+// https://gamedev.stackexchange.com/questions/32807/collision-resolve-sphere-aabb-and-aabb-aabb
 bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	return (min.x <= other.max.x && max.x >= other.min.x) &&
 		(min.y <= other.max.y && max.y >= other.min.y) &&

@@ -10,7 +10,7 @@ bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out)
 		out.contactPointCount = 1;
 		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
 		out.points[0].PenetrationDepth = fabs(between.Magnitude() - combinedRadii);
-		// doing this in collides with means no specific collider info needed in main program, can use depth of 0 for more complex solves
+		// doing this in collides with means no specific collider info needed in main program, can use depth of 0 for more complex solves before implementation - AABB, OOBB
 		return true;
 	}
 
@@ -18,16 +18,32 @@ bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out)
 }
 
 bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
-	Vector3 const closestPt = Vector3(
+	// box closest pt to sphere
+	Vector3 closestPt = Vector3(
 		max(other.GetMin().x, min(GetPosition().x, other.GetMax().x)), 
 		max(other.GetMin().y, min(GetPosition().y, other.GetMax().y)), 
 		max(other.GetMin().z, min(GetPosition().z, other.GetMax().z)));
 
-	const float dist = (closestPt.x - GetPosition().x) * (closestPt.x - GetPosition().x) +
-		(closestPt.y - GetPosition().y) * (closestPt.y - GetPosition().y) +
-		(closestPt.z - GetPosition().z) * (closestPt.z - GetPosition().z);
+	Vector3 between = closestPt - GetPosition();
+	//Vector3 diff = ; // get axis we pentrate the most
 
-	return dist < (radius * radius);
+	const float dist = between.Magnitude();
+
+	/*const float dist = (closestPt.x - GetPosition().x) * (closestPt.x - GetPosition().x) +
+		(closestPt.y - GetPosition().y) * (closestPt.y - GetPosition().y) +
+		(closestPt.z - GetPosition().z) * (closestPt.z - GetPosition().z);*/
+
+	if (dist < radius) {
+		out.collisionNormal = between;
+		out.collisionNormal.Normalize();
+		out.contactPointCount = 1;
+		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
+		out.points[0].PenetrationDepth = fabs(dist - radius);
+
+		return true;
+	}
+
+	return false;
 }
 
 /// <summary>

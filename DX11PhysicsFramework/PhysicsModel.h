@@ -45,6 +45,11 @@ public:
 		temp.Normalize();
 		return temp * force;
 	}
+
+	/// <summary>
+	/// to fix
+	/// </summary>
+	/// <returns></returns>
 	Vector3 FrictionForce() {
 
 		// normal force - gravity / against collision surface
