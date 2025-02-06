@@ -29,20 +29,3 @@ bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 bool AABBCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 	return false;
 }
-
-/// <summary>
-/// WIP		-- remember - AA so no rotation in collidable space
-/// </summary>
-/// <param name="other"></param>
-/// <returns></returns>
-float AABBCollider::CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) {
-	// closest pt
-	Vector3 const closestPt = Vector3(
-		max(min.x, min(other.GetPosition().x, max.x)), 
-		max(min.y, min(other.GetPosition().y, max.y)), 
-		max(min.z, min(other.GetPosition().z, max.z)));
-
-	const float dist = (other.GetPosition() - closestPt).Magnitude();
-
-	return 0;
-}

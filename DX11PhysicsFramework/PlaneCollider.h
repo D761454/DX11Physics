@@ -18,9 +18,5 @@ public:
 	virtual void Update(float dt) override {}
 
 	Vector3 GetNRML() const { return normal; }
-
-	virtual float CalculatePenetrationDepth(Collider& other, CollisionManifold& out) override { return other.CalculatePenetrationDepth(*this, out); }
-	virtual float CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) override { return 0.0f; }
-	virtual float CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) override { return 0.0f; }
 };
 

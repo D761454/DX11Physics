@@ -29,9 +29,5 @@ public:
 	Vector3 GetMin() const { return min; }
 	Vector3 GetMax() const { return max; }
 	Vector3 GetHalfExtents() const { return halfExtents; }
-
-	virtual float CalculatePenetrationDepth(Collider& other, CollisionManifold& out) override { return other.CalculatePenetrationDepth(*this, out); }
-	virtual float CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) override { return 0.0f; }
-	virtual float CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) override;
 };
 

@@ -21,8 +21,4 @@ public:
 	Vector3 GetPosition() const { return _tf->GetPosition(); }
 
 	virtual void Update(float dt) =0;
-
-	virtual float CalculatePenetrationDepth(Collider& other, CollisionManifold& out) = 0;
-	virtual float CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) =0;
-	virtual float CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) = 0;
 };

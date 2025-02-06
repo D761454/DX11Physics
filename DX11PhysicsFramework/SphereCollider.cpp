@@ -49,13 +49,10 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 	Vector3 toPlane = other.GetNRML(); toPlane.Reverse(); toPlane.Normalize(); 
 
-	Vector3 sphereIntersectPt = GetPosition() + toPlane;
-
 	Vector3 pos = GetPosition();
 	Vector3 nrml = other.GetNRML();
 	nrml.Normalize();
 
-	//float distance = (GetPosition() - other.GetPosition()) * toPlane;
 	float distance = nrml * pos / sqrt(nrml * nrml);
 
 	if (distance < radius) {
@@ -69,8 +66,4 @@ bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) 
 	}
 
 	return false;
-}
-
-float SphereCollider::CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) {
-	return (GetPosition() - other.GetPosition()).Magnitude() - GetRadius() - other.GetRadius();
 }

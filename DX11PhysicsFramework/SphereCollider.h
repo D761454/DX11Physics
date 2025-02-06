@@ -18,9 +18,5 @@ public:
 	float GetRadius() const { return radius; }
 
 	virtual void Update(float dt) override {}
-
-	virtual float CalculatePenetrationDepth(Collider& other, CollisionManifold& out) override { return other.CalculatePenetrationDepth(*this, out); }
-	virtual float CalculatePenetrationDepth(SphereCollider& other, CollisionManifold& out) override;
-	virtual float CalculatePenetrationDepth(AABBCollider& other, CollisionManifold& out) override { return 0.0f; }
 };
 

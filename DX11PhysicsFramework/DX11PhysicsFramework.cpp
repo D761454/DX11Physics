@@ -698,6 +698,7 @@ void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
 
 	if (objA->IsCollideable() && objB->IsCollideable() && objA->GetCollider()->CollidesWith(*objB->GetCollider(), manifold)) {
 		Vector3 collisionNormal = manifold.collisionNormal;
+		float depth = manifold.points[0].PenetrationDepth;
 
 		Vector3 relativeVelocity = objA->GetVelocity() - objB->GetVelocity();
 
@@ -715,9 +716,6 @@ void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
 			float j = vj * invMassSum;
 
 			// solve interpenetrations
-			float depth = objA->GetCollider()->CalculatePenetrationDepth(*objB->GetCollider(), manifold);
-			Debug::DebugPrintF("%f \n", depth);
-
 			Vector3 temp = collisionNormal * depth;
 			temp *= invMassSum;
 			/*temp *= invMassA;
