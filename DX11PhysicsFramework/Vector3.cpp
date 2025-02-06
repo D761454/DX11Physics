@@ -144,18 +144,6 @@ float Vector3::operator*(Vector3 u)
 }
 
 /// <summary>
-/// multiply vector by given vector
-/// </summary>
-/// <param name="u"></param>
-/// <returns></returns>
-Vector3 Vector3::operator*=(Vector3 u) {
-    x *= u.x;
-    y *= u.y;
-    z *= u.z;
-    return (*this);
-}
-
-/// <summary>
 /// *scale vector by given
 /// </summary>
 /// <param name="s"></param>

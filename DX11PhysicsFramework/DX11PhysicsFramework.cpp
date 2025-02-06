@@ -549,6 +549,7 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetTransform()->SetScale(1.0f, 1.0f, 1.0f);
 	gameObject->GetTransform()->SetPosition(-5.0f, 1.5f, 10.0f);
 	gameObject->GetAppearance()->SetTextureRV(_StoneTextureRV);
+	gameObject->GetPhysicsModel()->SetCollider(new SphereCollider(gameObject->GetTransform(), 1.0f));
 	_gameObjects.push_back(gameObject);
 
 	/*_gameObjects[1]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0));
@@ -647,6 +648,8 @@ void DX11PhysicsFramework::Update()
 		}
 
 		ResolveCollision(_gameObjects[0], _gameObjects[1]);
+		ResolveCollision(_gameObjects[0], _gameObjects[2]);
+		ResolveCollision(_gameObjects[0], _gameObjects[3]);
 		ResolveCollision(_gameObjects[1], _gameObjects[2]);
 
 		// Update camera
@@ -666,12 +669,12 @@ void DX11PhysicsFramework::Update()
 		for (auto gameObject : _gameObjects)
 		{
 			gameObject->Update(FPS60);
-			if (gameObject->GetTransform()->GetPosition().y < 0.5f && gameObject->GetPhysicsModel()->simulateGravity) {
+			/*if (gameObject->GetTransform()->GetPosition().y < 0.5f && gameObject->GetPhysicsModel()->simulateGravity) {
 				gameObject->GetPhysicsModel()->simulateGravity = false;
 				Vector3 temp = gameObject->GetPhysicsModel()->GetVelocity();
 				gameObject->GetPhysicsModel()->SetVelocity(Vector3(temp.x, 0, temp.z));
 				gameObject->GetTransform()->Move(Vector3(0, 0.5f - gameObject->GetTransform()->GetPosition().y, 0));
-			}
+			}*/
 		}
 
 		accumulator -= FPS60;

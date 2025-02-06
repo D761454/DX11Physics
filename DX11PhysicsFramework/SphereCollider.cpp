@@ -47,17 +47,23 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 /// <param name="other"></param>
 /// <returns></returns>
 bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
-	// returns plane facing axis pos e.g. y pos / returns sphere pos on plane facing axis
-	const float distToPlane = (other.GetPosition() * other.GetNRML()) - (GetPosition() * other.GetNRML());
+	Vector3 toPlane = other.GetNRML(); toPlane.Reverse(); toPlane.Normalize(); 
 
-	Vector3 between = (GetPosition() - (other.GetNRML() * distToPlane)) - GetPosition();
+	Vector3 sphereIntersectPt = GetPosition() + toPlane;
 
-	if (distToPlane < radius) {
-		out.collisionNormal = between;
+	Vector3 pos = GetPosition();
+	Vector3 nrml = other.GetNRML();
+	nrml.Normalize();
+
+	//float distance = (GetPosition() - other.GetPosition()) * toPlane;
+	float distance = nrml * pos / sqrt(nrml * nrml);
+
+	if (distance < radius) {
+		out.collisionNormal = toPlane;
 		out.collisionNormal.Normalize();
 		out.contactPointCount = 1;
 		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
-		out.points[0].PenetrationDepth = fabs(distToPlane - radius);
+		out.points[0].PenetrationDepth = fabs(distance - radius);
 
 		return true;
 	}
