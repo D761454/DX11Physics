@@ -524,8 +524,8 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetTransform()->SetRotation(90.0f, 0.0f, 0.0f);
 	gameObject->GetAppearance()->SetTextureRV(_GroundTextureRV);
 	gameObject->GetPhysicsModel()->simulateGravity = false;
-	gameObject->GetPhysicsModel()->SetCollider(new PlaneCollider(gameObject->GetTransform(), Vector3(0.0f, 1.0f, 0.0f)));
 	gameObject->GetPhysicsModel()->SetMass(0);
+	gameObject->GetPhysicsModel()->SetCollider(new PlaneCollider(gameObject->GetTransform(), Vector3(0.0f, 1.0f, 0.0f)));
 
 	_gameObjects.push_back(gameObject);
 
@@ -639,11 +639,13 @@ void DX11PhysicsFramework::Update()
 			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
 		}
 		if (GetAsyncKeyState('5')) {
+			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 100.0f, 0));
 			if (_gameObjects[2]->GetPhysicsModel()->constantAcceleration) {
-				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = false;
+				//_gameObjects[2]->GetPhysicsModel()->constantAcceleration = false;
+				
 			}
 			else {
-				_gameObjects[2]->GetPhysicsModel()->constantAcceleration = true;
+				//_gameObjects[2]->GetPhysicsModel()->constantAcceleration = true;
 			}
 		}
 
