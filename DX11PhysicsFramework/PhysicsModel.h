@@ -39,7 +39,8 @@ public:
 		return Vector3(0, -9.81f * _mass, 0); }
 
 	Vector3 DragForce() { 
-		float force = 0.5f * 1.0f * 1.05f * 1.0f * (_velocity.Magnitude() * _velocity.Magnitude());
+		// |F| = 0.5 p Cd A |V|2
+		float force = 0.5f * 1.293 * 0.47f * 1.0f * (_velocity.Magnitude() * _velocity.Magnitude());
 		Vector3 temp = _velocity;
 		temp.Reverse();
 		temp.Normalize();
@@ -48,7 +49,7 @@ public:
 
 	Vector3 FrictionForce() {
 		// Rf = 1/2 p V2 S Cf
-		float force = 0.5f * 0.5f * (_velocity * _velocity) * 10.0f * 0.47f;
+		float force = 0.5f * 0.5f * (_velocity * _velocity) * 10.0f * 0.6f;
 
 		Vector3 temp = _velocity;
 		temp.Reverse();
