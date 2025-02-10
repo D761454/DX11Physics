@@ -719,13 +719,10 @@ void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
 
 			// solve interpenetrations
 			Vector3 temp = collisionNormal * depth;
-			temp *= invMassSum;
-			/*temp *= invMassA;
-			temp *= invMassB;*/
 
-			objATransform->Move(temp);
+			objATransform->Move(temp * invMassA);
 			temp.Reverse();
-			objBTransform->Move(temp);
+			objBTransform->Move(temp * invMassB);
 
 			objA->ApplyImpulse(collisionNormal * (invMassA * j));
 			objB->ApplyImpulse(collisionNormal * -(invMassB * j));
