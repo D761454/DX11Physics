@@ -41,11 +41,6 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	return false;
 }
 
-/// <summary>
-/// WIP
-/// </summary>
-/// <param name="other"></param>
-/// <returns></returns>
 bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
 	Vector3 toPlane = other.GetNRML(); toPlane.Reverse(); toPlane.Normalize(); 
 

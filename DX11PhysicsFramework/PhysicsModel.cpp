@@ -20,7 +20,7 @@ void PhysicsModel::Update(float dt) {
 
 	_netforce += DragForce();
 	
-	//_netforce += FrictionForce(); // causes errors with interpenetrations
+	_netforce += FrictionForce();
 
 	if (!constantAcceleration) {
 		_acceleration += _netforce / _mass;

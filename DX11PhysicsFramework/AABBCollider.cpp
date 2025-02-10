@@ -1,5 +1,11 @@
 #include "AABBCollider.h"
 
+/// <summary>
+/// need manifold
+/// </summary>
+/// <param name="other"></param>
+/// <param name="out"></param>
+/// <returns></returns>
 bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	Vector3 const closestPt = Vector3(
 		max(min.x, min(other.GetPosition().x, max.x)), 
@@ -14,7 +20,12 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	return dist < (other.GetRadius() * other.GetRadius());
 }
 
-// https://gamedev.stackexchange.com/questions/32807/collision-resolve-sphere-aabb-and-aabb-aabb
+/// <summary>
+/// WIP
+/// </summary>
+/// <param name="other"></param>
+/// <param name="out"></param>
+/// <returns></returns>
 bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	return (min.x <= other.max.x && max.x >= other.min.x) &&
 		(min.y <= other.max.y && max.y >= other.min.y) &&
