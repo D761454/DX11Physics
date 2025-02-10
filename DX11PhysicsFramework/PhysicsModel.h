@@ -53,6 +53,11 @@ public:
 
 		Vector3 temp = _velocity;
 		temp.Reverse();
+
+		if (_velocity.Magnitude() - force < 0.25f) {
+			return temp;
+		}
+
 		temp.Normalize();
 
 		return temp * force;
