@@ -9,7 +9,7 @@ class AABBCollider : public Collider
 
 public:
 	AABBCollider(Transform* tf) : Collider(tf) {
-		halfExtents = tf->GetScale() / 2;
+		halfExtents = tf->GetScale();
 	}
 
 	virtual bool CollidesWith(Collider& other, CollisionManifold& out) override { return other.CollidesWith(*this, out); }
