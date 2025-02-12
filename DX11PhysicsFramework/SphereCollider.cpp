@@ -17,6 +17,12 @@ bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out)
 	return false;
 }
 
+/// <summary>
+/// swap to using half extents
+/// </summary>
+/// <param name="other"></param>
+/// <param name="out"></param>
+/// <returns></returns>
 bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	// box closest pt to sphere
 	Vector3 closestPt = Vector3(

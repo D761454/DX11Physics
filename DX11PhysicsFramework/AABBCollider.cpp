@@ -20,16 +20,19 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	return dist < (other.GetRadius() * other.GetRadius());
 }
 
-/// <summary>
-/// WIP
-/// </summary>
-/// <param name="other"></param>
-/// <param name="out"></param>
-/// <returns></returns>
 bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
-	return (min.x <= other.max.x && max.x >= other.min.x) &&
+	/*return (min.x <= other.max.x && max.x >= other.min.x) &&
 		(min.y <= other.max.y && max.y >= other.min.y) &&
-		(min.z <= other.max.z && max.z >= other.min.z);
+		(min.z <= other.max.z && max.z >= other.min.z);*/
+
+	// with half extents = 1 and pos = 3 and 2
+	// A3 - B2 = dist 1 between x s,
+	// 1 < A1 + B1 = dist 2 combined half extents
+	// overlap on x		-	repeat
+
+	return (fabs(GetPosition().x - other.GetPosition().x) < (halfExtents.x + other.GetHalfExtents().x) &&
+		fabs(GetPosition().y - other.GetPosition().y) < (halfExtents.y + other.GetHalfExtents().y) &&
+		fabs(GetPosition().z - other.GetPosition().z) < (halfExtents.z + other.GetHalfExtents().z));
 }
 
 /// <summary>
