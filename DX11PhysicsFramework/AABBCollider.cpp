@@ -28,6 +28,12 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	return false;
 }
 
+/// <summary>
+/// need manifold
+/// </summary>
+/// <param name="other"></param>
+/// <param name="out"></param>
+/// <returns></returns>
 bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	/*return (min.x <= other.max.x && max.x >= other.min.x) &&
 		(min.y <= other.max.y && max.y >= other.min.y) &&
@@ -38,9 +44,26 @@ bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	// 1 < A1 + B1 = dist 2 combined half extents
 	// overlap on x		-	repeat
 
-	return (fabs(GetPosition().x - other.GetPosition().x) < (halfExtents.x + other.GetHalfExtents().x) &&
-		fabs(GetPosition().y - other.GetPosition().y) < (halfExtents.y + other.GetHalfExtents().y) &&
-		fabs(GetPosition().z - other.GetPosition().z) < (halfExtents.z + other.GetHalfExtents().z));
+	Vector3 diff = GetPosition() - other.GetPosition();
+	Vector3 combinedExtents = halfExtents + other.GetHalfExtents();
+
+	Vector3 nrml = diff;
+	nrml.Normalize();
+
+	float radius = halfExtents * nrml;
+
+	if (diff.x < combinedExtents.x && diff.y < combinedExtents.y && diff.z < combinedExtents.z) {
+
+		out.collisionNormal = nrml;
+		out.collisionNormal.Normalize();
+		out.contactPointCount = 1;
+		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
+		out.points[0].PenetrationDepth = fabs(diff.Magnitude() - (radius + (other.GetHalfExtents() * nrml)));
+
+		return true;
+	}
+
+	return false;
 }
 
 bool AABBCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
