@@ -1,25 +1,31 @@
 #include "AABBCollider.h"
 
-/// <summary>
-/// need manifold
-/// </summary>
-/// <param name="other"></param>
-/// <param name="out"></param>
-/// <returns></returns>
 bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 	Vector3 pos = GetPosition();
 
-	Vector3 const closestPt = Vector3(
+	Vector3 closestPt = Vector3(
 		max(pos.x - halfExtents.x, min(other.GetPosition().x, pos.x + halfExtents.x)),
 		max(pos.y - halfExtents.y, min(other.GetPosition().y, pos.y + halfExtents.y)),
 		max(pos.z - halfExtents.z, min(other.GetPosition().z, pos.z + halfExtents.z)));
 
-	// is point in sphere
-	const float dist = (closestPt.x - other.GetPosition().x) * (closestPt.x - other.GetPosition().x) +
-		(closestPt.y - other.GetPosition().y) * (closestPt.y - other.GetPosition().y) +
-		(closestPt.z - other.GetPosition().z) * (closestPt.z - other.GetPosition().z);
+	Vector3 between = other.GetPosition() - closestPt;
 
-	return dist < (other.GetRadius() * other.GetRadius());
+	const float dist = between.Magnitude();
+
+	between.Normalize();
+
+	float radius = between * halfExtents;
+
+	if (dist < radius) {
+		out.collisionNormal = between;
+		out.contactPointCount = 1;
+		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
+		out.points[0].PenetrationDepth = fabs(dist - radius);
+
+		return true;
+	}
+
+	return false;
 }
 
 bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
@@ -37,11 +43,25 @@ bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 		fabs(GetPosition().z - other.GetPosition().z) < (halfExtents.z + other.GetHalfExtents().z));
 }
 
-/// <summary>
-/// WIP
-/// </summary>
-/// <param name="other"></param>
-/// <returns></returns>
 bool AABBCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
+	Vector3 nrml = other.GetNRML();
+	nrml.Normalize();
+
+	float radius = halfExtents * nrml;
+
+	// distance of box center from plane
+	float dist = nrml * GetPosition() / sqrt(nrml * nrml);
+
+	if (dist < radius) {
+		nrml.Reverse();
+		out.collisionNormal = nrml;
+		out.collisionNormal.Normalize();
+		out.contactPointCount = 1;
+		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
+		out.points[0].PenetrationDepth = fabs(dist - radius);
+
+		return true;
+	}
+
 	return false;
 }

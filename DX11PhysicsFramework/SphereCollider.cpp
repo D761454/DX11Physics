@@ -44,7 +44,7 @@ bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 }
 
 bool SphereCollider::CollidesWith(PlaneCollider& other, CollisionManifold& out) {
-	Vector3 toPlane = other.GetNRML(); toPlane.Reverse(); toPlane.Normalize(); 
+	Vector3 toPlane = other.GetNRML(); toPlane.Reverse(); toPlane.Normalize(); // points from sphere to plane
 
 	Vector3 pos = GetPosition();
 	Vector3 nrml = other.GetNRML();
