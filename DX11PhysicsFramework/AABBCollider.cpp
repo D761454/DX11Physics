@@ -7,10 +7,12 @@
 /// <param name="out"></param>
 /// <returns></returns>
 bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
+	Vector3 pos = GetPosition();
+
 	Vector3 const closestPt = Vector3(
-		max(min.x, min(other.GetPosition().x, max.x)), 
-		max(min.y, min(other.GetPosition().y, max.y)), 
-		max(min.z, min(other.GetPosition().z, max.z)));
+		max(pos.x - halfExtents.x, min(other.GetPosition().x, pos.x + halfExtents.x)),
+		max(pos.y - halfExtents.y, min(other.GetPosition().y, pos.y + halfExtents.y)),
+		max(pos.z - halfExtents.z, min(other.GetPosition().z, pos.z + halfExtents.z)));
 
 	// is point in sphere
 	const float dist = (closestPt.x - other.GetPosition().x) * (closestPt.x - other.GetPosition().x) +

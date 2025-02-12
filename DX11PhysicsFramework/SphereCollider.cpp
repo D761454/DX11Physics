@@ -17,18 +17,14 @@ bool SphereCollider::CollidesWith(SphereCollider& other, CollisionManifold& out)
 	return false;
 }
 
-/// <summary>
-/// swap to using half extents
-/// </summary>
-/// <param name="other"></param>
-/// <param name="out"></param>
-/// <returns></returns>
 bool SphereCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	// box closest pt to sphere
+	Vector3 pos = other.GetPosition();
+
 	Vector3 closestPt = Vector3(
-		max(other.GetMin().x, min(GetPosition().x, other.GetMax().x)), 
-		max(other.GetMin().y, min(GetPosition().y, other.GetMax().y)), 
-		max(other.GetMin().z, min(GetPosition().z, other.GetMax().z)));
+		max(pos.x - other.GetHalfExtents().x, min(GetPosition().x, pos.x + other.GetHalfExtents().x)),
+		max(pos.y - other.GetHalfExtents().y, min(GetPosition().y, pos.y + other.GetHalfExtents().y)),
+		max(pos.z - other.GetHalfExtents().z, min(GetPosition().z, pos.z + other.GetHalfExtents().z)));
 
 	Vector3 between = closestPt - GetPosition();
 

@@ -5,15 +5,11 @@
 
 class AABBCollider : public Collider
 {
-	Vector3 min, max;
 	Vector3 halfExtents;
 
 public:
 	AABBCollider(Transform* tf) : Collider(tf) {
-		// add/remove half width/height to get min and max from pos
-		min = tf->GetPosition() - tf->GetScale();
-		max = tf->GetPosition() + tf->GetScale();
-		halfExtents = max / 2;
+		halfExtents = tf->GetScale() / 2;
 	}
 
 	virtual bool CollidesWith(Collider& other, CollisionManifold& out) override { return other.CollidesWith(*this, out); }
@@ -22,12 +18,9 @@ public:
 	virtual bool CollidesWith(PlaneCollider& other, CollisionManifold& out) override;
 
 	virtual void Update(float dt) override {
-		min = this->GetPosition() - this->_tf->GetScale();
-		max = this->GetPosition() + this->_tf->GetScale();
+		
 	}
 
-	Vector3 GetMin() const { return min; }
-	Vector3 GetMax() const { return max; }
 	Vector3 GetHalfExtents() const { return halfExtents; }
 };
 
