@@ -63,7 +63,7 @@ void RigidBodyModel::Update(float dt) {
 
 	Quaternion orientation = _transform->GetOrientation();
 
-	orientation += orientation * _angularVelocity * 0.5 * dt;
+	orientation += orientation * _angularVelocity * 0.5f * dt;
 
 	if (orientation.Magnitude() != 0) {
 		orientation /= orientation.Magnitude();
