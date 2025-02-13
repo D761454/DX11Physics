@@ -47,13 +47,26 @@ bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	float radius = halfExtents * nrml;
 
 	if (fabs(diff.x) < combinedExtents.x && fabs(diff.y) < combinedExtents.y && fabs(diff.z) < combinedExtents.z) {
+		Vector3 normal;
 
-		out.collisionNormal = nrml;
+		if (fabs(diff.x) > fabs(diff.y) && fabs(diff.x) > fabs(diff.z)) {
+			normal = Vector3(diff.x, 0, 0);
+		}
+		else if (fabs(diff.y) >= fabs(diff.z)) {
+			normal = Vector3(0, diff.y, 0);
+		}
+		else {
+			normal = Vector3(0, 0, diff.z);
+		}
+
+		normal.Normalize();
+
+		out.collisionNormal = normal;
 		out.collisionNormal.Reverse();
 		out.collisionNormal.Normalize();
 		out.contactPointCount = 1;
-		out.points[0].Position = GetPosition() + (nrml * radius);
-		out.points[0].PenetrationDepth = 0;// fabs(diff.Magnitude() - (radius + (other.GetHalfExtents() * nrml)));
+		out.points[0].Position = GetPosition() + (normal * (halfExtents * normal));
+		out.points[0].PenetrationDepth = 0;
 
 		return true;
 	}
