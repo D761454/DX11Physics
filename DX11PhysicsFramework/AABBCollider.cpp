@@ -49,6 +49,8 @@ bool AABBCollider::CollidesWith(AABBCollider& other, CollisionManifold& out) {
 	if (fabs(diff.x) < combinedExtents.x && fabs(diff.y) < combinedExtents.y && fabs(diff.z) < combinedExtents.z) {
 		Vector3 normal;
 
+		// get axis alogned normal	-- for OOBB and rotation, 
+		// could use closest pt to collider - then when above one another - normal is axis aligned, when past threshold, normal is angled - resulting in rotation / angled bounce off
 		if (fabs(diff.x) > fabs(diff.y) && fabs(diff.x) > fabs(diff.z)) {
 			normal = Vector3(diff.x, 0, 0);
 		}
