@@ -552,10 +552,6 @@ HRESULT DX11PhysicsFramework::InitRunTimeData()
 	gameObject->GetPhysicsModel()->SetCollider(new SphereCollider(gameObject->GetTransform(), 1.0f));
 	_gameObjects.push_back(gameObject);
 
-	/*_gameObjects[1]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0));
-	_gameObjects[2]->GetPhysicsModel()->SetVelocity(Vector3(0, 1, 0));
-	_gameObjects[2]->GetPhysicsModel()->SetAcceleration(Vector3(0, 1, 0));*/
-
 	_timer = new Timer();
 
 	return S_OK;
@@ -618,35 +614,22 @@ void DX11PhysicsFramework::Update()
 		// Move gameobjects
 		if (GetAsyncKeyState('1'))
 		{
-			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, -0.02f));
 			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(-10.0f, 0, 0));
 		}
 		if (GetAsyncKeyState('2'))
 		{
-			//_gameObjects[1]->GetTransform()->Move(Vector3(0, 0, 0.02f));
 			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(10.0f, 0, 0));
 		}
 		if (GetAsyncKeyState('3'))
 		{
 			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, -1), Vector3(1, 0, 1));
-			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, -0.02f));
-			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, -1.0f));
 		}
 		if (GetAsyncKeyState('4'))
 		{
 			_gameObjects[1]->GetPhysicsModel()->AddRelativeForce(Vector3(0, 0, 1), Vector3(1, 0, -1));
-			//_gameObjects[2]->GetTransform()->Move(Vector3(0, 0, 0.02f));
-			//_gameObjects[2]->GetPhysicsModel()->AddForce(Vector3(0, 0, 1.0f));
 		}
 		if (GetAsyncKeyState('5')) {
 			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 100.0f, 0));
-			if (_gameObjects[2]->GetPhysicsModel()->constantAcceleration) {
-				//_gameObjects[2]->GetPhysicsModel()->constantAcceleration = false;
-				
-			}
-			else {
-				//_gameObjects[2]->GetPhysicsModel()->constantAcceleration = true;
-			}
 		}
 
 		ResolveCollision(_gameObjects[0], _gameObjects[1]);
@@ -671,12 +654,6 @@ void DX11PhysicsFramework::Update()
 		for (auto gameObject : _gameObjects)
 		{
 			gameObject->Update(FPS60);
-			/*if (gameObject->GetTransform()->GetPosition().y < 0.5f && gameObject->GetPhysicsModel()->simulateGravity) {
-				gameObject->GetPhysicsModel()->simulateGravity = false;
-				Vector3 temp = gameObject->GetPhysicsModel()->GetVelocity();
-				gameObject->GetPhysicsModel()->SetVelocity(Vector3(temp.x, 0, temp.z));
-				gameObject->GetTransform()->Move(Vector3(0, 0.5f - gameObject->GetTransform()->GetPosition().y, 0));
-			}*/
 		}
 
 		accumulator -= FPS60;
