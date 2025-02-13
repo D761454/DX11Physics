@@ -8,7 +8,7 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 		max(pos.y - halfExtents.y, min(other.GetPosition().y, pos.y + halfExtents.y)),
 		max(pos.z - halfExtents.z, min(other.GetPosition().z, pos.z + halfExtents.z)));
 
-	Vector3 between = other.GetPosition() - closestPt;
+	Vector3 between = closestPt - other.GetPosition();
 
 	const float dist = between.Magnitude();
 
@@ -16,11 +16,13 @@ bool AABBCollider::CollidesWith(SphereCollider& other, CollisionManifold& out) {
 
 	float radius = between * halfExtents;
 
-	if (dist < radius) {
+	if (dist < other.GetRadius()) {
 		out.collisionNormal = between;
+		out.collisionNormal.Reverse();
+		out.collisionNormal.Normalize();
 		out.contactPointCount = 1;
-		out.points[0].Position = GetPosition() + (out.collisionNormal * radius);
-		out.points[0].PenetrationDepth = fabs(dist - radius);
+		out.points[0].Position = other.GetPosition() + (between * other.GetRadius());
+		out.points[0].PenetrationDepth = fabs(dist - other.GetRadius());
 
 		return true;
 	}
