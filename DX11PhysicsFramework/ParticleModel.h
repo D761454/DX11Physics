@@ -9,7 +9,7 @@ protected:
 	float timeAlive = 0.0f;
 	float resetTime;
 
-	Vector3 pertubation = Vector3(0, 0, 0);
+	Vector3 perturbation = Vector3(0, 0, 0);
 
 public:
 	ParticleModel(Transform* transform) : PhysicsModel(transform) {};

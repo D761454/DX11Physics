@@ -2,7 +2,7 @@
 
 ParticleModel::ParticleModel(Transform* transform, float resetTime, Vector3 pertubation, bool invertGravity) : PhysicsModel(transform) {
 	this->resetTime = resetTime;
-	this->pertubation = pertubation;
+	this->perturbation = pertubation;
 }
 
 void ParticleModel::Update(float dt) {
