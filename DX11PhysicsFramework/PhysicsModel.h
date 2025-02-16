@@ -54,6 +54,7 @@ public:
 		Vector3 temp = _velocity;
 		temp.Reverse();
 
+		// used to bring objects to stop
 		if (_velocity.Magnitude() - force < 0.25f) {
 			return temp;
 		}

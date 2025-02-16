@@ -632,10 +632,15 @@ void DX11PhysicsFramework::Update()
 			_gameObjects[1]->GetPhysicsModel()->AddForce(Vector3(0, 100.0f, 0));
 		}
 
-		ResolveCollision(_gameObjects[0], _gameObjects[1]);
-		ResolveCollision(_gameObjects[0], _gameObjects[2]);
-		ResolveCollision(_gameObjects[0], _gameObjects[3]);
-		ResolveCollision(_gameObjects[1], _gameObjects[2]);
+		for (int i = 0; i < _gameObjects.size(); i++)
+		{
+			for (int j = 0; j < _gameObjects.size(); j++)
+			{
+				if (i != j) {
+					ResolveCollision(_gameObjects[i], _gameObjects[j]);
+				}
+			}
+		}
 
 		// Update camera
 		float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
@@ -676,6 +681,10 @@ void DX11PhysicsFramework::ResolveCollision(GameObject* A, GameObject* B) {
 	PhysicsModel* objB = B->GetPhysicsModel();
 
 	if (objA->IsCollideable() && objB->IsCollideable() && objA->GetCollider()->CollidesWith(*objB->GetCollider(), manifold)) {
+
+		//objA->AddForce(objA->FrictionForce());
+		objB->AddForce(objB->FrictionForce());
+
 		Vector3 collisionNormal = manifold.collisionNormal;
 		float depth = manifold.points[0].PenetrationDepth;
 
