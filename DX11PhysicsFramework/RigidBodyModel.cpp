@@ -52,10 +52,6 @@ void RigidBodyModel::CalculateAngularVelocity(float deltaTime) {
 	_angularVelocity += Vector3(temp.x, temp.y, temp.z) * deltaTime;
 }
 
-/// <summary>
-/// fix to slow rotation
-/// </summary>
-/// <param name="dt"></param>
 void RigidBodyModel::Update(float dt) {
 	PhysicsModel::Update(dt);
 
@@ -63,15 +59,17 @@ void RigidBodyModel::Update(float dt) {
 
 	Quaternion orientation = _transform->GetOrientation();
 
-	orientation += orientation * _angularVelocity * 0.5f * dt;
+	orientation += (orientation * _angularVelocity) * 0.5f * dt;
 
 	if (orientation.Magnitude() != 0) {
 		orientation /= orientation.Magnitude();
 	}
-
 	_transform->SetOrientation(orientation);
 
 	_angularVelocity *= pow(_angularDamping, dt);
+
+	// prevents infinite rotation
+	_torque = Vector3();
 }
 
 void RigidBodyModel::AddRelativeForce(Vector3 force, Vector3 point) {

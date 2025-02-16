@@ -7,9 +7,8 @@
 class Debug
 {
 private:
-
-public:
 	static int VDebugPrintF(const char* format, va_list args);
+public:
 	static int DebugPrintF(const char* format, ...);
 };
 
